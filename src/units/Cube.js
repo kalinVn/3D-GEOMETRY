@@ -1,6 +1,6 @@
 import CoordSystem from './CoordSystem';
-import {PARAMS_CUBE} from './config';
-import Vector2D from './lib/Vector2D';
+import {PARAMS_CUBE} from '../config';
+import Vector2D from '../lib/Vector2D';
 
 class Cube {
 
@@ -16,7 +16,6 @@ class Cube {
        this._pointF = new Vector2D(0, 0);
        this._pointG = new Vector2D(0, 0);
 
-       this._veritices = [];
        this._edges = {};
     }
 
@@ -138,136 +137,12 @@ class Cube {
             to: this._edges['FG'].to
         };
 
-        // const rotatedPointZ = new Vector2D(unitVectorAxisZ.x, unitVectorAxisZ.y).rotationMatrix(0.1, 140);
-        // this._pointB = new Vector2D(this._pointA.x + rotatedPointZ.x * this.size  , this._pointA.y + rotatedPointZ.y * this.size);
-
-        // const normalVectorPointC = this.coordSys.getAxisX().substract(this.coordSys.getCenter());
-        // const unitVectorAxisX = normalVectorPointC.unit();
-        
-        // this._pointC = new Vector2D(this._pointA.x + unitVectorAxisX.x * this.size  , this._pointA.y + unitVectorAxisX.y * this.size);
-
-        // this._pointD = new Vector2D(centerX + unitVectorAxisX.x * this.size  , centerY + unitVectorAxisX.y * this.size);
-        // this._pointE = new Vector2D(this._pointB.x + this.size, this._pointB.y);
-
-        // const normalVectorPointF= this._pointE.substract(this._pointC);
-        // const unitVectorAxisF = normalVectorPointF.unit();
-        // this._pointF = new Vector2D(this._pointD.x + unitVectorAxisF.x * this.size, this._pointD.y + unitVectorAxisF.y * this.size);
-
-        // const normalVectorPointG= this._pointE.substract(this._pointC);
-        // const unitVectorAxisG = normalVectorPointF.unit();
-        // this._pointG = new Vector2D(this.coordSys.getCenter().x + unitVectorAxisF.x * this.size, this.coordSys.getCenter().y + unitVectorAxisF.y * this.size);
-
     }
 
-
-    initVertices () {
-        const centerX = this.coordSystem.getCenter().x;
-        const centerY = this.coordSystem.getCenter().y;
-
-        this._edges = [
-            {
-                from: new Vector2D(centerX, centerY),
-                to: new Vector2D(this._pointA.x, this._pointA.y)
-            },
-            {
-                from: new Vector2D(this._pointA.x, this._pointA.y),
-                to: new Vector2D(this._pointB.x, this._pointB.y)
-            },
-            {
-                from: new Vector2D(this._pointA.x, this._pointA.y),
-                to: new Vector2D(this._pointC.x, this._pointC.y)
-            },
-            
-            {
-                from: new Vector2D(centerX, centerY),
-                to: new Vector2D(this._pointD.x, this._pointD.y)
-            },
-            
-            {
-                from: new Vector2D(this._pointD.x, this._pointD.y),
-                to: new Vector2D(this._pointC.x, this._pointC.y)
-            },
-
-            {
-                from: new Vector2D(this._pointD.x, this._pointD.y),
-                to: new Vector2D(this._pointC.x, this._pointC.y)
-            },
-
-            {
-                from: new Vector2D(this._pointE.x, this._pointE.y),
-                to: new Vector2D(this._pointC.x, this._pointC.y)
-            },
-
-            {
-                from: new Vector2D(this._pointE.x, this._pointE.y),
-                to: new Vector2D(this._pointC.x, this._pointC.y)
-            },
-
-            {
-                from: new Vector2D(this._pointD.x, this._pointD.y),
-                to: new Vector2D(this._pointF.x, this._pointF.y)
-            },
-
-            {
-                from: new Vector2D(centerX, centerY),
-                to: new Vector2D(this._pointG.x, this._pointG.y)
-            },
-
-            {
-                from: new Vector2D(this._pointB.x, this._pointB.y),
-                to: new Vector2D(this._pointG.x, this._pointG.y)
-            },
-
-            {
-                from: new Vector2D(this._pointB.x, this._pointB.y),
-                to: new Vector2D(this._pointE.x, this._pointE.y)
-            },
-
-            {
-                from: new Vector2D(this._pointE.x, this._pointE.y),
-                to: new Vector2D(this._pointF.x, this._pointF.y)
-            },
-
-            {
-                from: new Vector2D(this._pointF.x, this._pointF.y),
-                to: new Vector2D(this._pointG.x, this._pointG.y)
-            }
-        ];
-    }
-    
     getEdges () {
         return this._edges;
     }
 
-    getPointA () {
-        return this._pointA;
-    }
-
-    getPointB () {
-        return this._pointB;
-    }
-
-    getPointC () {
-        return this._pointC;
-    }
-
-    getPointD () {
-        return this._pointD;
-    }
-
-    getPointE () {
-        return this._pointE;
-    }
-
-    getPointF () {
-        return this._pointF;
-    }
-
-    getPointG () {
-        return this._pointG;
-    }
-    
-    
 }
 
 export default Cube;

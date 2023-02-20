@@ -1,7 +1,7 @@
-import Render from './Render.js';
+import CanvasRender from './renderers/CanvasRender.js';
 import RenderEngine  from './factory/RenderEngine.js';
-import CoordSystem from './CoordSystem'; 
-import Cube from './Cube'; 
+import CoordSystem from './units/CoordSystem'; 
+import Cube from './units/Cube'; 
 import {CARTESIAN_COORD_SYSTEM, PARAMS_CUBE} from './config';
  
 class App {

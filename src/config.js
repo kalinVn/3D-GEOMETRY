@@ -1,4 +1,5 @@
-export const RENDER_ENGINE = '';
+// export const RENDER_ENGINE = '';
+export const RENDER_ENGINE = 'PIXI';
 export  const MODEL_MIN_X = -2;
 export  const MODEL_MAX_X = 2;
 

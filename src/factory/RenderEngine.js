@@ -1,7 +1,7 @@
 
 import { RENDER_ENGINE } from "../config";
 import PixiRender from "../renderers/PixiRender";
-import Render from "../Render";
+import Render from "../renderers/CanvasRender";
 
 class RenderEngine {
 

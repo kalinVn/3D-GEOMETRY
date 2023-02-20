@@ -1,8 +1,5 @@
-import { forEach } from 'lodash';
-import {MODEL_MIN_X, MODEL_MAX_X, MODEL_MIN_Y, MODEL_MAX_Y} from './config.js';
 
-
-class Render {
+class CanvasRender {
 
     constructor () {
         this.canvas = document.createElement('canvas');
@@ -14,17 +11,6 @@ class Render {
 		this.ctx.canvas.height = 900;
     }
 
-
-    render (points) {
-        const width = this.canvas.width;
-        const height = this.canvas.height;
-        this.ctx.clearRect(0, 0, width, height);
-        
-        points.forEach((point) => {
-            this._renderPoint(point);
-        });
-        // requestAnimationFrame(render);
-    }
 
     drawCoordSystem (coordSystem, ) {
         const centerX = coordSystem.getCenter().x;
@@ -74,26 +60,6 @@ class Render {
         
     }
 
-    _renderPoint (point) {
-        const projectedPoint = this._project(point);
-        const x = projectedPoint[0],
-              y = projectedPoint[1];
-        
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x + 0.5, y + 0.5);
-        this.ctx.lineWidth = 2;
-        this.ctx.strokeStyle = "red";
-        this.ctx.stroke();
-    }
-    
-    _project (point) {
-        // console.log(point);
-        // console.log(this.canvas.width * (point[0] - MODEL_MIN_X) / (MODEL_MAX_X - MODEL_MIN_X));
-        return [
-            this.canvas.width * (point[0] - MODEL_MIN_X) / (MODEL_MAX_X - MODEL_MIN_X),
-            this.canvas.height * (1 - (point[1] - MODEL_MIN_Y) / (MODEL_MAX_X - MODEL_MIN_X)),
-        ];
-    }
 }
 
-export default Render;
+export default CanvasRender;
