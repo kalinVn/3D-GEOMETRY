@@ -20,7 +20,8 @@ export const CARTESIAN_COORD_SYSTEM = {
     axisLength: 250,
     center: {
         x: 650,
-        y: 450
+        y: 450,
+        z: 0
     }
 }
 

@@ -32,7 +32,7 @@ export default class CoordSys {
 
     setPostionZ () {
         const rotatedVector = this.getRotatedVector(45);
-        
+        debugger
         const x = rotatedVector.x  + this._center.x;
         const y = rotatedVector.y + this._center.y;
 

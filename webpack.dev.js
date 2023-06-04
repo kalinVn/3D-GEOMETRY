@@ -5,6 +5,9 @@ const path = require("path");
 module.exports = merge(common, {
     mode: 'development',
     devtool:'inline-source-map',
+    experiments: {
+		topLevelAwait: true,
+	},
     devServer: {
         static: {
             directory: path.join(__dirname, 'dist'),

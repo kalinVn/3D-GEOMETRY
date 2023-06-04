@@ -1,5 +1,5 @@
 {
-  "name": "webpack_test",
+  "name": "3D_geometry",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,9 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.19.6",
-    "@babel/preset-env": "^7.19.4",
-    "babel-loader": "^8.2.5",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "@babel/register": "^7.7.4",
+    "@babel/cli": "^7.7.4",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
     "sass": "^1.55.0",
