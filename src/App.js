@@ -19,10 +19,8 @@ class App {
     }
 
     init () {
-        console.log(this.render);
         this.render.drawCoordSystem(this.coordSystem);
         this.render.drawCube(this.coordSystem, this.cube);
-
     }
 
     

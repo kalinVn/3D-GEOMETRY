@@ -21,17 +21,16 @@ class Cube {
 
     initGeometry () {
         const normalVectorAxisZ= this.coordSys.getAxisZ().substract(this.coordSys.getCenter());
+        
         const unitVectorAxisZ = normalVectorAxisZ.unit();
         const centerX = this.coordSys.getCenter().x;
         const centerY = this.coordSys.getCenter().y ;
-
+        
         this._pointA = new Vector2D(centerX + unitVectorAxisZ.x * this.size, centerY + unitVectorAxisZ.y * this.size);
-        
-        
         
         const rotatedPointZ = new Vector2D(unitVectorAxisZ.x, unitVectorAxisZ.y).rotationMatrix(0.1, 140);
         this._pointB = new Vector2D(this._pointA.x + rotatedPointZ.x * this.size  , this._pointA.y + rotatedPointZ.y * this.size);
-
+        
         const normalVectorPointC = this.coordSys.getAxisX().substract(this.coordSys.getCenter());
         const unitVectorAxisX = normalVectorPointC.unit();
         
@@ -47,7 +46,7 @@ class Cube {
         const normalVectorPointG= this._pointE.substract(this._pointC);
         const unitVectorAxisG = normalVectorPointF.unit();
         this._pointG = new Vector2D(this.coordSys.getCenter().x + unitVectorAxisF.x * this.size, this.coordSys.getCenter().y + unitVectorAxisF.y * this.size);
-
+        debugger
     }
 
     initEdges () {
@@ -141,6 +140,34 @@ class Cube {
 
     getEdges () {
         return this._edges;
+    }
+
+    getPointA () {
+        return this._pointA;
+    }
+
+    getPointB () {
+        return this._pointB;
+    }
+
+    getPointC () {
+        return this._pointC;
+    }
+
+    getPointD () {
+        return this._pointD;
+    }
+
+    getPointE () {
+        return this._pointE;
+    }
+
+    getPointF () {
+        return this._pointF;
+    }
+
+    getPointG () {
+        return this._pointG;
     }
 
 }

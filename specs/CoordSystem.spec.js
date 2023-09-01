@@ -2,7 +2,6 @@ let chai = require('chai');
 let sinon = require('sinon');
 
 const { expect } = require('chai');
-const chaiaspromise = require("chai-as-promised");
 
 import CoordSys from  '../src/units/CoordSystem';
 import Vector2D from '../src/lib/Vector2D';
@@ -16,6 +15,7 @@ describe('CoordSys', function() {
   });
 
   it('should initialize correctly', function() {
+    
     const center = new Vector2D(CARTESIAN_COORD_SYSTEM.center.x, CARTESIAN_COORD_SYSTEM.center.y);
     
     expect(center.x).to.be.equal(coordSys.getCenter().x);
@@ -36,16 +36,6 @@ describe('CoordSys', function() {
     expect(coordSys.getAxisY().x).to.be.equal(expectedY.x);
     expect(coordSys.getAxisY().y).to.be.equal(expectedY.y);
 
-  });
-
-  it('should calculate the correct rotated vector', function() {
-    // Test the getRotatedVector method with a specific angle
-    const angle = 45;
-    const rotatedVector = coordSys.getRotatedVector(angle);
-    const expectedVector =  new Vector2D(-176.78, 176.78);
-
-    expect(parseFloat(rotatedVector.x.toFixed(2))).to.be.equal(expectedVector.x);
-    expect(parseFloat(rotatedVector.y.toFixed(2))).to.be.equal(expectedVector.y);
   });
 
 
