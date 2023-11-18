@@ -31,22 +31,22 @@ class App {
     _createCube () {
 
         const cubeParams = {
-            color: "#FF0000",
+            color: "0x34eb7d",
             axisLength: 120,
             angle: 30,
             showEdgeLabels: true
         };
 
-        this.cube = new Cube(cubeParams);
+        this.cube = new Cube(this.coordSystem, cubeParams);
         this.cube.initGeometry();
         this.cube.initEdges();
         this.render.drawCube(this.coordSystem, this.cube);
     }
 
     _createCoordSys () {
-        this.plane = new Plane();
+        
         const coordSysParams = {
-            color: "#FF0000",
+            color: "0xf54242",
             axisLength: 160,
             center: {
                 x: 500,
@@ -59,7 +59,7 @@ class App {
             rotetionMatixAngle: 45
         };
 
-        this.coordSystem = new CoordSystem();
+        this.coordSystem = new CoordSystem(coordSysParams);
 
         this.render.drawCoordSystem(this.coordSystem);
     }

@@ -36,10 +36,10 @@ class PixiRender {
 
     drawCoordSystem (coordSystem) {
         // this._drawLine(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, "red");
-
-        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisY().x, coordSystem.getAxisY().y, 0x000000);
-        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisX().x, coordSystem.getAxisX().y, 0x000000);
-        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisZ().x, coordSystem.getAxisZ().y, 0x000000);
+        const color = coordSystem.getColor();
+        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisY().x, coordSystem.getAxisY().y, color);
+        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisX().x, coordSystem.getAxisX().y, color);
+        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisZ().x, coordSystem.getAxisZ().y, color);
         this.app.stage.addChild(this.graphics);
         const showLabels = coordSystem.getShowLabels();
         
@@ -190,7 +190,7 @@ class PixiRender {
     }
 
     _drawLine (fromX, fromY, toX, toY, color) {
-        this.graphics.beginFill(0x000000);
+        this.graphics.beginFill(color);
         this.graphics.lineStyle(2, color, 1);
         this.graphics.moveTo(fromX, fromY);
         this.graphics.lineTo(toX, toY);

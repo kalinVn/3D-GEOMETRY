@@ -4,10 +4,10 @@ import Vector2D from '../lib/Vector2D';
 
 class Cube {
 
-    constructor () {
-       this.size = PARAMS_CUBE.axisLength;
-       this._showEdgeLabels = PARAMS_CUBE.showEdgeLabels;
-       this.coordSys = new CoordSystem();
+    constructor (coordSys, params) {
+       this.size = params.axisLength;
+       this._showEdgeLabels = params.showEdgeLabels;
+       this.coordSys = coordSys;
        this.vector2D = new Vector2D();
        this._v1 = new Vector2D(0, 0);
        this._v2 = new Vector2D(0, 0);
@@ -33,9 +33,6 @@ class Cube {
         
         this._v1 = this._v1.projectTo(this.coordSys.getCenter());
         
-        const axisXSubstracted = this.coordSys.getCenter().substract(this.coordSys.getAxisX());
-        const axisXAbsSubstracted = axisXSubstracted.abs();
-
         this._v2SubstactedVector = this.coordSys.getAxisX().substract( this.coordSys.getCenter())
         this._v2UnitVector = this._v2SubstactedVector.unit();
         this._v2 =  this._v2UnitVector.mult(this.size);
