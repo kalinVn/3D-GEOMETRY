@@ -1,5 +1,5 @@
-import {MODEL_MIN_X, MODEL_MAX_X, MODEL_MIN_Y, MODEL_MAX_Y} from '../config.js';
-import {Application, Assets, Graphics}  from 'pixi.js';
+import {PADDING_LABEL_AXISES_COORDSYS} from '../config.js';
+import {Application, Text, Graphics}  from 'pixi.js';
 import CoordSystem from '../units/CoordSystem'; 
 
 class PixiRender {
@@ -7,7 +7,7 @@ class PixiRender {
     constructor () {
         this.canvas = document.createElement('canvas');
         this.canvas.setAttribute('id','canvas1');
-        // document.body.append(this.canvas);
+       
         this.app = new Application({
             width: 1500,
             height: 700,
@@ -22,9 +22,79 @@ class PixiRender {
         
     }
 
+    drawPlane (plane) {
+        this._drawLine(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, 0x000000);
+        this._drawLine(plane.getV2().x, plane.getV2().y, plane.getV3().x, plane.getV3().y, 0x000000);
+        this._drawLine(plane.getV3().x, plane.getV3().y, plane.getV4().x, plane.getV4().y, 0x000000);
+        this._drawLine(plane.getV1().x, plane.getV1().y, plane.getV4().x, plane.getV4().y, 0x000000);
+        
+        this.graphics.beginFill(0xFFFF00);
+        this.graphics.drawPolygon(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, plane.getV3().x, plane.getV3().y, plane.getV4().x, plane.getV4().y);
+
+        this.app.stage.addChild(this.graphics);
+    }
+
     drawCoordSystem (coordSystem) {
+        // this._drawLine(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, "red");
+
+        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisY().x, coordSystem.getAxisY().y, 0x000000);
+        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisX().x, coordSystem.getAxisX().y, 0x000000);
+        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisZ().x, coordSystem.getAxisZ().y, 0x000000);
+        this.app.stage.addChild(this.graphics);
+        const showLabels = coordSystem.getShowLabels();
+        
+        if (showLabels) {
+            
+            const labelAxisX = new Text('x', {
+                fontFamily: 'Arial',
+                fontSize: 24,
+                fill: 'red',
+                align: 'center'
+                
+            });
+
+            const labelAxisY = new Text('y', {
+                fontFamily: 'Arial',
+                fontSize: 24,
+                fill: 'red',
+                align: 'center',
+                x: coordSystem.getAxisY().x + 30,
+                y: coordSystem.getAxisY().y
+            });
+
+            const labelAxisZ = new Text('z', {
+                fontFamily: 'Arial',
+                fontSize: 24,
+                fill: 'red',
+                align: 'center'
+                
+            });
+
+            labelAxisX.x = coordSystem.getAxisX().x;
+            labelAxisX.y = coordSystem.getAxisX().y;
+
+            labelAxisY.x = coordSystem.getAxisY().x + PADDING_LABEL_AXISES_COORDSYS;
+            labelAxisY.y = coordSystem.getAxisY().y - PADDING_LABEL_AXISES_COORDSYS;
+
+            labelAxisZ.x = coordSystem.getAxisZ().x + PADDING_LABEL_AXISES_COORDSYS;
+            labelAxisZ.y = coordSystem.getAxisZ().y - PADDING_LABEL_AXISES_COORDSYS;
+
+            this.app.stage.addChild(labelAxisX);
+            this.app.stage.addChild(labelAxisY);
+            this.app.stage.addChild(labelAxisZ);
+            
+        }
+
+        if (coordSystem.getHand() === 'right') {
+            // this._drawRightHandCoordSystem(coordSystem);
+        }
+    }
+
+    _drawRightHandCoordSystem (coordSystem) {
         const centerX = coordSystem.getCenter().x;
         const centerY = coordSystem.getCenter().y;
+        const showLabels = coordSystem.getShowLabels();
+
         const axisX = {
             x: coordSystem.getAxisX().x,
             y: coordSystem.getAxisX().y,
@@ -40,10 +110,53 @@ class PixiRender {
             y: coordSystem.getAxisZ().y,
         };
         
+        this._drawLine(centerX, centerY, centerX + 200, centerY, "blue");
         this._drawLine(centerX, centerY, axisX.x, axisX.y, "red");
         this._drawLine(centerX, centerY, axisY.x, axisY.y, "red");
         this._drawLine(centerX, centerY, axisZ.x, axisZ.y, "red");
-        this.app.stage.addChild(this.graphics)
+        
+        if (showLabels) {
+
+            const labelAxisX = new Text('x', {
+                fontFamily: 'Arial',
+                fontSize: 24,
+                fill: 'red',
+                align: 'center'
+                
+            });
+
+            const labelAxisY = new Text('y', {
+                fontFamily: 'Arial',
+                fontSize: 24,
+                fill: 'red',
+                align: 'center',
+                x: coordSystem.getAxisY().x + 30,
+                y: coordSystem.getAxisY().y
+            });
+
+            const labelAxisZ = new Text('z', {
+                fontFamily: 'Arial',
+                fontSize: 24,
+                fill: 'red',
+                align: 'center'
+                
+            });
+
+            labelAxisX.x = coordSystem.getAxisX().x;
+            labelAxisX.y = coordSystem.getAxisX().y;
+
+            labelAxisY.x = coordSystem.getAxisY().x + PADDING_LABEL_AXISES_COORDSYS;
+            labelAxisY.y = coordSystem.getAxisY().y - PADDING_LABEL_AXISES_COORDSYS;
+
+            labelAxisZ.x = coordSystem.getAxisZ().x + PADDING_LABEL_AXISES_COORDSYS;
+            labelAxisZ.y = coordSystem.getAxisZ().y - PADDING_LABEL_AXISES_COORDSYS;
+
+            this.app.stage.addChild(labelAxisX);
+            this.app.stage.addChild(labelAxisY);
+            this.app.stage.addChild(labelAxisZ);
+        }
+
+        this.app.stage.addChild(this.graphics);
     }
 
     drawCube (coordSystem, cube) {
@@ -52,18 +165,33 @@ class PixiRender {
         
         const edges = cube.getEdges();
         
+        // let edge = edges['V1V2'];
+        // this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, "pink");
+        // edge = edges['V2V3'];
+        // this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, "pink");
         Object.entries(edges).forEach( (item) => {
             const edge = item[1];
-            console.log(edge.from.x)
-            this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, "pink");
+            this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, 0x34eb7d);
+            if (cube.getShowEdgeLabels()) {
+                if (edge.hasOwnProperty('label')) {
+                    const label = new Text(edge.label.text, {
+                        fontFamily: 'Arial',
+                        fontSize: 13,
+                        fill: 'red',
+                        align: 'center'
+                        
+                    });
+                    label.x = edge.label.x;
+                    label.y = edge.label.y;
+                    this.app.stage.addChild(label);
+                }
+            }
         });
-        
     }
-
 
     _drawLine (fromX, fromY, toX, toY, color) {
         this.graphics.beginFill(0x000000);
-        this.graphics.lineStyle(2, 0x000000, 1);
+        this.graphics.lineStyle(2, color, 1);
         this.graphics.moveTo(fromX, fromY);
         this.graphics.lineTo(toX, toY);
         

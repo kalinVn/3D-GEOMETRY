@@ -31,8 +31,20 @@ export default class Vector2D {
         return  new Vector2D(Math.abs(this.x) -Math.abs( vector.x),  Math.abs(this.y) -Math.abs( vector.y) );
     }
 
+    abs () {
+        return  new Vector2D(Math.abs(this.x),  Math.abs(this.y));
+    }
+
+
     mult (scalar) {
         return  new Vector2D(this.x * scalar,  this.y * scalar);
+    }
+
+    parallel (vector, length) {
+        const substractedVecor = this.substract(vector);
+        const unitVector = substractedVecor.unit(length);
+        
+        return unitVector.mult(length);
     }
 
     multTo (vector) {
@@ -61,9 +73,9 @@ export default class Vector2D {
 
     direction () {
         return  new Vector2D(Math.abs(this.x) / this.x,  Math.abs(this.y) / this.y);
-    };
+    }
 
-    rotationMatrix (radius, degree) {
+    rotationMatrix (degree) {
         let rads = (degree * Math.PI) / 180.0
         
         let x = this.x * Math.cos(rads) - this.y * Math.sin(rads);
@@ -71,5 +83,9 @@ export default class Vector2D {
 
         return new Vector2D(x, y);
     }
+
+    projectTo (vector) {
+        return new Vector2D(vector.x + this.x, vector.y + this.y);
+    }   
 
 }

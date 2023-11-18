@@ -30,8 +30,8 @@ describe('Test cube class', function() {
     const expectedPointF = new Vector2D(780.46, 330.46);
     const expectedPointG = new Vector2D(660.46, 330.46);
 
-    expect(parseFloat(expectedPointA.x.toFixed(2))).to.be.equal(parseFloat(cube.getPointA().x.toFixed(2)));
-    expect(parseFloat(expectedPointA.y.toFixed(2))).to.be.equal(parseFloat(cube.getPointA().y.toFixed(2)));
+    expect(parseFloat(expectedPointA.x.toFixed(2))).to.be.equal(parseFloat(cube.getV1().x.toFixed(2)));
+    expect(parseFloat(expectedPointA.y.toFixed(2))).to.be.equal(parseFloat(cube.getV1().y.toFixed(2)));
 
     expect(parseFloat(expectedPointB.x.toFixed(2))).to.be.equal(parseFloat(cube.getPointB().x.toFixed(2)));
     expect(parseFloat(expectedPointB.y.toFixed(2))).to.be.equal(parseFloat(cube.getPointB().y.toFixed(2)));
@@ -58,7 +58,7 @@ describe('Test cube class', function() {
 
     // Test the edges of the cube
     const edges = cube.getEdges();
-    expect(edges).to.have.property('EA')
+    expect(edges).to.have.property('V1V2')
     expect(edges).to.have.property('AB')
     expect(edges).to.have.property('BC')
     expect(edges).to.have.property('CD')

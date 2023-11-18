@@ -6,15 +6,16 @@ class Cube {
 
     constructor () {
        this.size = PARAMS_CUBE.axisLength;
+       this._showEdgeLabels = PARAMS_CUBE.showEdgeLabels;
        this.coordSys = new CoordSystem();
        this.vector2D = new Vector2D();
-       this._pointA = new Vector2D(0, 0);
-       this._pointB = new Vector2D(0, 0);
-       this._pointC = new Vector2D(0, 0);
-       this._pointD = new Vector2D(0, 0);
-       this._pointE = new Vector2D(0, 0);
-       this._pointF = new Vector2D(0, 0);
-       this._pointG = new Vector2D(0, 0);
+       this._v1 = new Vector2D(0, 0);
+       this._v2 = new Vector2D(0, 0);
+       this._v3 = new Vector2D(0, 0);
+       this._v4 = new Vector2D(0, 0);
+       this._v5 = new Vector2D(0, 0);
+       this._v6 = new Vector2D(0, 0);
+       this._v7 = new Vector2D(0, 0);
 
        this._edges = {};
     }
@@ -26,114 +27,168 @@ class Cube {
         const centerX = this.coordSys.getCenter().x;
         const centerY = this.coordSys.getCenter().y ;
         
-        this._pointA = new Vector2D(centerX + unitVectorAxisZ.x * this.size, centerY + unitVectorAxisZ.y * this.size);
+        this._v1SubstactedVector = this.coordSys.getAxisZ().substract( this.coordSys.getCenter())
+        this._v1UnitVector = this._v1SubstactedVector.unit();
+        this._v1 =  this._v1UnitVector.mult(this.size);
         
-        const rotatedPointZ = new Vector2D(unitVectorAxisZ.x, unitVectorAxisZ.y).rotationMatrix(0.1, 140);
-        this._pointB = new Vector2D(this._pointA.x + rotatedPointZ.x * this.size  , this._pointA.y + rotatedPointZ.y * this.size);
+        this._v1 = this._v1.projectTo(this.coordSys.getCenter());
+        
+        const axisXSubstracted = this.coordSys.getCenter().substract(this.coordSys.getAxisX());
+        const axisXAbsSubstracted = axisXSubstracted.abs();
+
+        this._v2SubstactedVector = this.coordSys.getAxisX().substract( this.coordSys.getCenter())
+        this._v2UnitVector = this._v2SubstactedVector.unit();
+        this._v2 =  this._v2UnitVector.mult(this.size);
+        this._v2 =   this._v2.projectTo(this.coordSys.getCenter());
+        
         
         const normalVectorPointC = this.coordSys.getAxisX().substract(this.coordSys.getCenter());
         const unitVectorAxisX = normalVectorPointC.unit();
         
-        this._pointC = new Vector2D(this._pointA.x + unitVectorAxisX.x * this.size  , this._pointA.y + unitVectorAxisX.y * this.size);
+        const axisYSubstracted = this.coordSys.getAxisY().substract(this.coordSys.getCenter());
+        const v3UnitVector = axisYSubstracted.unit();
+        this._v3 =  v3UnitVector.mult(this.size);
+        this._v3 =   this._v3.projectTo(this._v2);
 
-        this._pointD = new Vector2D(centerX + unitVectorAxisX.x * this.size  , centerY + unitVectorAxisX.y * this.size);
-        this._pointE = new Vector2D(this._pointB.x + this.size, this._pointB.y);
+        this._v4 =  v3UnitVector.mult(this.size);
+        this._v4 = this._v4.projectTo(this._v1);
+        
+        const substractV5Vector = this.coordSys.getCenter().substract(this._v1);
+        const v5UnitVectorthis = substractV5Vector.unit();
+        this._v5 =  v5UnitVectorthis.mult(this.size);
+        this._v5 = this._v5.projectTo(this._v4);
+        
+        const substractV6Vector = this._v3.substract(this._v5);
+        const v6UnitVectorthis = substractV6Vector.unit();
+        this._v6 =  v6UnitVectorthis.mult(this.size);
+        this._v6 = this._v6.projectTo(this._v4);
+        
+        const substractV7Vector = this._v1.substract(this._v4);
+        const v7UnitVectorthis = substractV7Vector.unit();
+        this._v7=  v7UnitVectorthis.mult(this.size);
+        this._v7 = this._v7.projectTo(this._v6);
 
-        const normalVectorPointF= this._pointE.substract(this._pointC);
-        const unitVectorAxisF = normalVectorPointF.unit();
-        this._pointF = new Vector2D(this._pointD.x + unitVectorAxisF.x * this.size, this._pointD.y + unitVectorAxisF.y * this.size);
-
-        const normalVectorPointG= this._pointE.substract(this._pointC);
-        const unitVectorAxisG = normalVectorPointF.unit();
-        this._pointG = new Vector2D(this.coordSys.getCenter().x + unitVectorAxisF.x * this.size, this.coordSys.getCenter().y + unitVectorAxisF.y * this.size);
-        debugger
     }
 
     initEdges () {
-        const normalVectorAxisZ= this.coordSys.getAxisZ().substract(this.coordSys.getCenter());
+        const normalVectorAxisZ = this.coordSys.getAxisZ().substract(this.coordSys.getCenter());
         const unitVectorAxisZ = normalVectorAxisZ.unit();
         const centerX = this.coordSys.getCenter().x;
         const centerY = this.coordSys.getCenter().y ;
         const coordSysCenter = new Vector2D(centerX, centerY)
 
-        this._pointA = new Vector2D( unitVectorAxisZ.x * this.size, unitVectorAxisZ.y * this.size);
+      
         const fromPointA = coordSysCenter.add(unitVectorAxisZ.mult(this.size))
         const normalVectorFromPointAxisX = this.coordSys.getAxisX().substract(this.coordSys.getCenter());
         const unitVectorAxisX = normalVectorFromPointAxisX.unit();
         const toPointA = fromPointA.add(unitVectorAxisX.mult(this.size))
         
-        this._edges['EA'] = {
+        this._edges['OxV1'] = {
             from: this.coordSys.getCenter(),
-            to: fromPointA
-        }
-
-        this._edges['AB'] = {
-            from: fromPointA,
-            to: toPointA
-        }
-        
-        const rotatedPointZ = new Vector2D(unitVectorAxisZ.x, unitVectorAxisZ.y).rotationMatrix(0.1, 140);
-        const toPointBC = new Vector2D(toPointA.x + rotatedPointZ.x * this.size  , toPointA.y + rotatedPointZ.y * this.size);
-        
-        this._edges['BC'] = {
-            from: this._edges['AB'].to,
-            to: toPointBC
+            to: this._v1,
+            label: {
+                x: this._v1.x - 30,
+                y: this._v1.y + 50,
+                text: 'V1'
+            }
         };
 
-        const normalVectorFromPointAB = this._edges['AB'].from.substract(this._edges['AB'].to);
-        const unitVectorFromPointCD = normalVectorFromPointAB.unit();
-        const toPointCD = this._edges['BC'].to.add(unitVectorFromPointCD.mult(this.size));
-        this._edges['CD'] = {
-            from: this._edges['BC'].to,
-            to: toPointCD
-        };
-
-        this._edges['AD'] = {
-            from: this._edges['AB'].from,
-            to: this._edges['CD'].to
-        };
-        
-        this._edges['EF'] = {
+        this._edges['OxV2'] = {
             from: this.coordSys.getCenter(),
-            to: new Vector2D(this.coordSys.getCenter().x  + this.size, this.coordSys.getCenter().y)
+            to: this._v2,
+            label: {
+                x: this._v2.x  + 10,
+                y: this._v2.y-10,
+                text: 'V2'
+            }
         };
 
-        const normalVectorFromPointEH = this._edges['AD'].to.substract(this._edges['AD'].from);
-        const unitVectorFromPointEH = normalVectorFromPointEH.unit();
-        const toPointEH =  coordSysCenter.add(unitVectorFromPointEH.mult(this.size));
-        this._edges['EH'] = {
-            from: this.coordSys.getCenter(),
-            to: toPointEH
+        this._edges['V2xV3'] = {
+            from: this._v2,
+            to: this._v3,
+            label: {
+                x: this._v3.x + 10,
+                y: this._v3.y + 10,
+                text: 'V3'
+            }
         };
 
-
-        const normalVectorFromPointFG = this._edges['EH'].to.substract(this._edges['EH'].from);
-        const unitVectorFromPointFG = normalVectorFromPointEH.unit();
-        const toPointFG =  this._edges['EF'].to.add(unitVectorFromPointEH.mult(this.size));
-        this._edges['FG'] = {
-            from: this._edges['EF'].to,
-            to: toPointFG
+        this._edges['V1xV4'] = {
+            from: this._v1,
+            to: this._v4,
+            label: {
+                x: this._v4.x - 40,
+                y: this._v4.y + 10,
+                text: 'V4'
+            }
+        };
+        
+        this._edges['V4xV5'] = {
+            from: this._v4,
+            to: this._v5,
+            label: {
+                x: this._v5.x - 40,
+                y: this._v5.y - 30,
+                text: 'V5'
+            }
+           
         };
 
-        this._edges['GH'] = {
-            from: this._edges['EH'].to,
-            to: this._edges['FG'].to
+        this._edges['V3xV5'] = {
+            from: this._v3,
+            to: this._v5,
+           
         };
 
-
-        this._edges['DH'] = {
-            from: this._edges['AD'].to,
-            to: this._edges['EH'].to
+        this._edges['V4xV6'] = {
+            from: this._v4,
+            to: this._v6,
+            label: {
+                x: this._v6.x - 40,
+                y: this._v6.y -+ 10,
+                text: 'V6'
+            }
+           
         };
 
-        this._edges['BF'] = {
-            from: this._edges['AB'].to,
-            to: this._edges['EF'].to
+        this._edges['V6xV7'] = {
+            from: this._v6,
+            to: this._v7,
+            label: {
+                x: this._v7.x - 40,
+                y: this._v7.y -+ 10,
+                text: 'V7'
+            }
+           
         };
 
-        this._edges['DG'] = {
-            from: this._edges['BC'].to,
-            to: this._edges['FG'].to
+        this._edges['V6xV3'] = {
+            from: this._v6,
+            to: this._v3,
+           
+        };
+
+        this._edges['V7xV1'] = {
+            from: this._v7,
+            to: this._v1,
+           
+        };
+
+        this._edges['V7xV2'] = {
+            from: this._v7,
+            to: this._v2,
+           
+        };
+
+        this._edges['V8'] = {
+            from: this._v5,
+            to: this.coordSys.getCenter(),
+            label: {
+                x: this.coordSys.getCenter().x + 10,
+                y: this.coordSys.getCenter().y - 20,
+                text: 'V8'
+            }
+           
         };
 
     }
@@ -142,32 +197,36 @@ class Cube {
         return this._edges;
     }
 
-    getPointA () {
-        return this._pointA;
+    getV1 () {
+        return this._v1;
     }
 
-    getPointB () {
-        return this._pointB;
+    getV2 () {
+        return this._v2;
     }
 
     getPointC () {
-        return this._pointC;
+        return this._v3;
     }
 
     getPointD () {
-        return this._pointD;
+        return this._v4;
     }
 
     getPointE () {
-        return this._pointE;
+        return this._v5;
     }
 
     getPointF () {
-        return this._pointF;
+        return this._v6;
     }
 
     getPointG () {
-        return this._pointG;
+        return this._v7;
+    }
+
+    getShowEdgeLabels () {
+        return this._showEdgeLabels;
     }
 
 }
