@@ -1,6 +1,6 @@
 import './main.scss';
 
-import App from './App.js';
+// import './examples/coordsys.js';
 
-const app = new App();
-app.init();
+import './examples/cube.js';
+

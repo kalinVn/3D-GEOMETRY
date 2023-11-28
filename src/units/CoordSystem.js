@@ -11,11 +11,31 @@ export default class CoordSys {
         this._color = params.color
         
         this._center = new Vector2D(params.center.x, params.center.y);
-        this._y = this._center.projectTo(new Vector2D(0, -this.axisLength));
-        this._x = new Vector2D(this.axisLength, 0).rotationMatrix(angleAxisY);
-        this._z = new Vector2D(this.axisLength, 0).rotationMatrix(angleAxisY + 90);
-        this._x = this._center.projectTo(this._x);
-        this._z = this._center.projectTo(this._z);
+
+        this._y = new Vector2D(this._center.x +  this.axisLength, this._center.y);
+        this._y = this._project(this._center, this._y, 90);
+        
+
+        this._x = new Vector2D(this._center.x -  this.axisLength, this._center.y);
+        this._x = this._project(this._center, this._x, 0);
+
+
+        this._z = new Vector2D(this._center.x -  this.axisLength, this._center.y);
+        this._z = this._project(this._center, this._x, -45);
+        
+    }
+
+    _project (projectionVector, currentVector, angle=null) {
+        currentVector = projectionVector.substract(currentVector);
+        currentVector = currentVector.unit();
+        currentVector = currentVector.mult(this.axisLength);
+        
+        if (angle) 
+            currentVector = currentVector.rotationMatrix(angle);
+
+        currentVector = projectionVector.projectTo(currentVector);
+
+        return currentVector;
     }
 
     getColor () {

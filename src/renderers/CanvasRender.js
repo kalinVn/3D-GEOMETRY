@@ -44,7 +44,6 @@ class CanvasRender {
         
         Object.entries(edges).forEach( (item) => {
             const edge = item[1];
-            console.log(edge.from.x)
             this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, "pink");
         });
         

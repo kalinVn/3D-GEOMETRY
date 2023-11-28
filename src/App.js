@@ -20,31 +20,6 @@ class App {
 
     init () {
         // create coord system
-        this._createCoordSys();
-
-        // create cube
-        this._createCube();
-        
-        
-    }
-
-    _createCube () {
-
-        const cubeParams = {
-            color: "0x34eb7d",
-            axisLength: 120,
-            angle: 30,
-            showEdgeLabels: true
-        };
-
-        this.cube = new Cube(this.coordSystem, cubeParams);
-        this.cube.initGeometry();
-        this.cube.initEdges();
-        this.render.drawCube(this.coordSystem, this.cube);
-    }
-
-    _createCoordSys () {
-        
         const coordSysParams = {
             color: "0xf54242",
             axisLength: 160,
@@ -55,12 +30,38 @@ class App {
             },
             direction: 'up',
             hand: 'right',
-            showLabels: false,
+            showLabels: true,
             rotetionMatixAngle: 45
         };
+        this.createCoordSys(coordSysParams);
 
-        this.coordSystem = new CoordSystem(coordSysParams);
+        const cubeParams = {
+            color: "0x34eb7d",
+            axisLength: 120,
+            angle: 30,
+            showLabels: true
+        };
 
+        // create cube
+        this.createCube(cubeParams, this.coordSystem);
+        
+        
+    }
+
+    createCube (params, coordSystem) {
+        this.cube = new Cube(coordSystem, params);
+        this.cube.initGeometry();
+        this.cube.initEdges();
+        this.render.drawCube(coordSystem, this.cube);
+    }
+
+    createCoordSys (params, coordSys=null) {
+        if (coordSys) {
+            this.render.drawCoordSystem(coordSys);
+            return
+        }
+        this.coordSystem = new CoordSystem(params);
+        
         this.render.drawCoordSystem(this.coordSystem);
     }
 

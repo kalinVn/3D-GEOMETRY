@@ -35,7 +35,7 @@ class PixiRender {
     }
 
     drawCoordSystem (coordSystem) {
-        // this._drawLine(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, "red");
+       
         const color = coordSystem.getColor();
         this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisY().x, coordSystem.getAxisY().y, color);
         this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisX().x, coordSystem.getAxisX().y, color);
@@ -74,7 +74,7 @@ class PixiRender {
             labelAxisX.y = coordSystem.getAxisX().y;
 
             labelAxisY.x = coordSystem.getAxisY().x + PADDING_LABEL_AXISES_COORDSYS;
-            labelAxisY.y = coordSystem.getAxisY().y - PADDING_LABEL_AXISES_COORDSYS;
+            labelAxisY.y = coordSystem.getAxisY().y - 40;
 
             labelAxisZ.x = coordSystem.getAxisZ().x + PADDING_LABEL_AXISES_COORDSYS;
             labelAxisZ.y = coordSystem.getAxisZ().y - PADDING_LABEL_AXISES_COORDSYS;
@@ -83,10 +83,6 @@ class PixiRender {
             this.app.stage.addChild(labelAxisY);
             this.app.stage.addChild(labelAxisZ);
             
-        }
-
-        if (coordSystem.getHand() === 'right') {
-            // this._drawRightHandCoordSystem(coordSystem);
         }
     }
 
@@ -146,7 +142,7 @@ class PixiRender {
             labelAxisX.y = coordSystem.getAxisX().y;
 
             labelAxisY.x = coordSystem.getAxisY().x + PADDING_LABEL_AXISES_COORDSYS;
-            labelAxisY.y = coordSystem.getAxisY().y - PADDING_LABEL_AXISES_COORDSYS;
+            labelAxisY.y = coordSystem.getAxisY().y + PADDING_LABEL_AXISES_COORDSYS;
 
             labelAxisZ.x = coordSystem.getAxisZ().x + PADDING_LABEL_AXISES_COORDSYS;
             labelAxisZ.y = coordSystem.getAxisZ().y - PADDING_LABEL_AXISES_COORDSYS;
@@ -165,13 +161,18 @@ class PixiRender {
         
         const edges = cube.getEdges();
         
-        // let edge = edges['V1V2'];
-        // this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, "pink");
-        // edge = edges['V2V3'];
-        // this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, "pink");
         Object.entries(edges).forEach( (item) => {
             const edge = item[1];
-            this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, 0x34eb7d);
+            let hideEdge = false;
+            
+            if (edge.hasOwnProperty('hideEdge')) {
+                hideEdge = edge.hideEdge ? true : false;
+            }
+            
+            if (!hideEdge) {
+                 this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, 0x34eb7d);
+            }
+
             if (cube.getShowEdgeLabels()) {
                 if (edge.hasOwnProperty('label')) {
                     const label = new Text(edge.label.text, {
