@@ -29,9 +29,6 @@ export default class Vector3D {
         return  new Vector3D(this.x - vector.x,  this.y - vector.y, this.z - vector.z);
     }
 
-    angleBetweenTwoVectors () {
-
-    }
 
     substractAbs (vector) {
         return  new Vector3D(Math.abs(this.x) -Math.abs( vector.x), Math.abs(this.y) -Math.abs( vector.y), Math.abs(this.z) - Math.abs( vector.z) );
@@ -57,7 +54,7 @@ export default class Vector3D {
         return  new Vector3D(this.x * vector.x,  this.y * vector.y,   this.z * vector.z);
     }
 
-    dot (vector) {
+    dotProduct (vector) {
         return  (this.x) * (vector.x) +  (this.y )* (vector.y) +  (this.z )* (vector.z)
     }
 
@@ -69,7 +66,7 @@ export default class Vector3D {
         return  this.substract(vector).length();
     }
 
-    cross (vector) {
+    crossProduct (vector) {
         return  (this.x) * (vector.y) -  (this.y )* (vector.x) - (this.z )* (vector.z);
     }
 

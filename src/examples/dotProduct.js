@@ -36,7 +36,7 @@ app.getRender().drawLine(center.x, center.y, bisection.x, bisection.y);
 const v1 = bisection.substractAbs(coordSys.getCenter());
 const v2 = xAxis.substractAbs(coordSys.getCenter()) ;
 
-const dotProduct = v1.dot(v2);
+const dotProduct = v1.dotProduct(v2);
 
 const cosTheta = dotProduct / (v1.length() * v2.length());
 
