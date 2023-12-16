@@ -19,7 +19,7 @@ const params = {
 // if want ro hide x ,y z labels 
 // params.showLabels = true;
 
-// create cube and coord sys
+// create coord sys
 app.createCoordSys(params);
 
 

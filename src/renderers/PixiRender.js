@@ -23,10 +23,10 @@ class PixiRender {
     }
 
     drawPlane (plane) {
-        this._drawLine(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, 0x000000);
-        this._drawLine(plane.getV2().x, plane.getV2().y, plane.getV3().x, plane.getV3().y, 0x000000);
-        this._drawLine(plane.getV3().x, plane.getV3().y, plane.getV4().x, plane.getV4().y, 0x000000);
-        this._drawLine(plane.getV1().x, plane.getV1().y, plane.getV4().x, plane.getV4().y, 0x000000);
+        this.drawLine(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, 0x000000);
+        this.drawLine(plane.getV2().x, plane.getV2().y, plane.getV3().x, plane.getV3().y, 0x000000);
+        this.drawLine(plane.getV3().x, plane.getV3().y, plane.getV4().x, plane.getV4().y, 0x000000);
+        this.drawLine(plane.getV1().x, plane.getV1().y, plane.getV4().x, plane.getV4().y, 0x000000);
         
         this.graphics.beginFill(0xFFFF00);
         this.graphics.drawPolygon(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, plane.getV3().x, plane.getV3().y, plane.getV4().x, plane.getV4().y);
@@ -37,9 +37,9 @@ class PixiRender {
     drawCoordSystem (coordSystem) {
        
         const color = coordSystem.getColor();
-        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisY().x, coordSystem.getAxisY().y, color);
-        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisX().x, coordSystem.getAxisX().y, color);
-        this._drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisZ().x, coordSystem.getAxisZ().y, color);
+        this.drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisY().x, coordSystem.getAxisY().y, color);
+        this.drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisX().x, coordSystem.getAxisX().y, color);
+        this.drawLine(coordSystem.getCenter().x, coordSystem.getCenter().y, coordSystem.getAxisZ().x, coordSystem.getAxisZ().y, color);
         this.app.stage.addChild(this.graphics);
         const showLabels = coordSystem.getShowLabels();
         
@@ -106,10 +106,10 @@ class PixiRender {
             y: coordSystem.getAxisZ().y,
         };
         
-        this._drawLine(centerX, centerY, centerX + 200, centerY, "blue");
-        this._drawLine(centerX, centerY, axisX.x, axisX.y, "red");
-        this._drawLine(centerX, centerY, axisY.x, axisY.y, "red");
-        this._drawLine(centerX, centerY, axisZ.x, axisZ.y, "red");
+        this.drawLine(centerX, centerY, centerX + 200, centerY, "blue");
+        this.drawLine(centerX, centerY, axisX.x, axisX.y, "red");
+        this.drawLine(centerX, centerY, axisY.x, axisY.y, "red");
+        this.drawLine(centerX, centerY, axisZ.x, axisZ.y, "red");
         
         if (showLabels) {
 
@@ -170,7 +170,7 @@ class PixiRender {
             }
             
             if (!hideEdge) {
-                 this._drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, 0x34eb7d);
+                 this.drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, 0x34eb7d);
             }
 
             if (cube.getShowEdgeLabels()) {
@@ -190,7 +190,7 @@ class PixiRender {
         });
     }
 
-    _drawLine (fromX, fromY, toX, toY, color) {
+    drawLine (fromX, fromY, toX, toY, color) {
         this.graphics.beginFill(color);
         this.graphics.lineStyle(2, color, 1);
         this.graphics.moveTo(fromX, fromY);

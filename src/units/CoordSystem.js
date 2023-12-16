@@ -13,19 +13,16 @@ export default class CoordSys {
         this._center = new Vector3D(params.center.x, params.center.y, z);
         
         this._y = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
-        this._y = this._project(this._center, this._y, 90);
-        
+        this._y = this.project(this._center, this._y, 90);
 
         this._x = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
-        this._x = this._project(this._center, this._x, 0);
-
+        this._x = this.project(this._center, this._x, 0);
 
         this._z = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
-        this._z = this._project(this._center, this._x, -45);
-        
+        this._z = this.project(this._center, this._x, -45);
     }
 
-    _project (projectionVector, currentVector, angle=null) {
+    project (projectionVector, currentVector, angle=null) {
         currentVector = projectionVector.substract(currentVector);
         currentVector = currentVector.unit();
         currentVector = currentVector.mult(this.axisLength);
@@ -36,6 +33,14 @@ export default class CoordSys {
         currentVector = projectionVector.projectTo(currentVector);
 
         return currentVector;
+    }
+
+    bisectionFirstQuadrant () {
+        return this.project(this._center, this._y, 45);
+    }
+
+    projectionBetweenAngle () {
+
     }
 
     getColor () {

@@ -64,6 +64,10 @@ class App {
         this.render.drawCoordSystem(this.coordSystem);
     }
 
+    getRender () {
+        return this.render;
+    }
+
     
 }
 
