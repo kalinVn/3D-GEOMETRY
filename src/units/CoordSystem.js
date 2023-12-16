@@ -1,26 +1,26 @@
-import Vector2D from '../lib/Vector2D.js';
-import { CARTESIAN_COORD_SYSTEM } from '../config.js';
+import Vector3D from '../lib/Vector3D.js';
 
 export default class CoordSys {
 
     constructor(params) {
         
-        this.axisLength = params.axisLength;
+        this.axisLength = 140;
         const angleAxisY = 45;
         this._showLabels = params.showLabels;
         this._color = params.color
-        
-        this._center = new Vector2D(params.center.x, params.center.y);
+        const z = 0;
 
-        this._y = new Vector2D(this._center.x +  this.axisLength, this._center.y);
+        this._center = new Vector3D(params.center.x, params.center.y, z);
+        
+        this._y = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
         this._y = this._project(this._center, this._y, 90);
         
 
-        this._x = new Vector2D(this._center.x -  this.axisLength, this._center.y);
+        this._x = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
         this._x = this._project(this._center, this._x, 0);
 
 
-        this._z = new Vector2D(this._center.x -  this.axisLength, this._center.y);
+        this._z = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
         this._z = this._project(this._center, this._x, -45);
         
     }
@@ -57,8 +57,8 @@ export default class CoordSys {
     setPostionY() {
         const x = this._center.x;
         const y = this._center.y - this.axisLength
-
-        this._y = new Vector2D(x, y);
+        const z = 0;
+        this._y = new Vector3D(x, y, z);
     }
 
     setPostionZ() {
@@ -66,15 +66,17 @@ export default class CoordSys {
 
         const x = rotatedVector.x + this._center.x;
         const y = rotatedVector.y + this._center.y;
-        this._z = new Vector2D(x, y);
+        const z = 0;
+        this._z = new Vector3D(x, y, z);
     }
 
     setPostionX() {
         const rotatedVector = this.getRotatedVector(this._rotetionMatixAngle);
         const x = this._center.x - rotatedVector.x;
-        const y = this._center.y + rotatedVector.y;;
+        const y = this._center.y + rotatedVector.y;
+        const z = 0
 
-        this._x = new Vector2D(x, y);
+        this._x = new Vector3D(x, y, z);
     }
 
     getAxisX() {
@@ -90,7 +92,7 @@ export default class CoordSys {
     }
 
     getRotatedVector(angle) {
-        const initVector = new Vector2D(0, this.axisLength);
+        const initVector = new Vector3D(0, this.axisLength);
         const rotatedVector = initVector.rotationMatrix(angle);
 
 

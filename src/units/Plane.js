@@ -2,7 +2,6 @@ import Vector2D from '../lib/Vector2D.js';
 import { PLANE_PARAMS } from '../config';
 
 export default class Plane {
-    debugger
     constructor() {
         const params = PLANE_PARAMS;
         const angle = 25;

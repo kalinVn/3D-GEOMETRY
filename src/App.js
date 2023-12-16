@@ -2,8 +2,6 @@ import CanvasRender from './renderers/CanvasRender.js';
 import RenderEngine  from './factory/RenderEngine.js';
 import CoordSystem from './units/CoordSystem'; 
 import Cube from './units/Cube'; 
-import Plane from './units/Plane'; 
-import {CARTESIAN_COORD_SYSTEM, PARAMS_CUBE} from './config';
  
 class App {
     
@@ -60,6 +58,7 @@ class App {
             this.render.drawCoordSystem(coordSys);
             return
         }
+        
         this.coordSystem = new CoordSystem(params);
         
         this.render.drawCoordSystem(this.coordSystem);

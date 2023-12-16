@@ -1,6 +1,6 @@
 import CoordSystem from './CoordSystem';
 import {PARAMS_CUBE} from '../config';
-import Vector2D from '../lib/Vector2D';
+import Vector3D from '../lib/Vector3D';
 
 class Cube {
 
@@ -9,14 +9,15 @@ class Cube {
        
        this._showEdgeLabels = params.showLabels;
        this.coordSys = coordSys;
-       this.vector2D = new Vector2D();
-       this._v1 = new Vector2D(this.coordSys.getCenter().x - this.size, this.coordSys.getCenter().y);
-       this._v2 = new Vector2D(this.coordSys.getCenter().x, this.coordSys.getCenter().y - this.size);
-       this._v3 =  new Vector2D(this.coordSys.getCenter().x + this.size, this.coordSys.getCenter().y);
-       this._v4 =  new Vector2D(this.coordSys.getCenter().x, this.coordSys.getCenter().y +this.size);
-       this._v5 = new Vector2D(0, 0);
-       this._v6 =  new Vector2D(this.coordSys.getCenter().x - this.size, this.coordSys.getCenter().y);
-       this._v7 = new Vector2D(0, 0);
+       this.vector3D = new Vector3D();
+       const z = 0;
+       this._v1 = new Vector3D(this.coordSys.getCenter().x - this.size, this.coordSys.getCenter().y, z);
+       this._v2 = new Vector3D(this.coordSys.getCenter().x, this.coordSys.getCenter().y - this.size, z);
+       this._v3 =  new Vector3D(this.coordSys.getCenter().x + this.size, this.coordSys.getCenter().y, z);
+       this._v4 =  new Vector3D(this.coordSys.getCenter().x, this.coordSys.getCenter().y +this.size, z);
+       this._v5 = new Vector3D(0, 0, 0);
+       this._v6 =  new Vector3D(this.coordSys.getCenter().x - this.size, this.coordSys.getCenter().y, z);
+       this._v7 = new Vector3D(0, 0, 0);
        this._v7 = this.coordSys.getCenter();
        this._edges = {};
     }
@@ -79,7 +80,7 @@ class Cube {
         const unitVectorAxisZ = normalVectorAxisZ.unit();
         const centerX = this.coordSys.getCenter().x;
         const centerY = this.coordSys.getCenter().y ;
-        const coordSysCenter = new Vector2D(centerX, centerY)
+        const coordSysCenter = new Vector3D(centerX, centerY)
 
       
         const fromPointA = coordSysCenter.add(unitVectorAxisZ.mult(this.size))
