@@ -69,9 +69,9 @@ export default class Vector3D {
     }
 
     crossProduct (vector) {
-        const x = this.y * vector.z - vector.y *  this.z;
-        const y = (-1) * (this.z * vector.x - vector.z *  this.x);
-        const z = this.x * vector.y - vector.x *  this.y;
+        const x = this.y * vector.z - this.z *  vector.y;
+        const y = this.z * vector.x - this.x * vector.z;
+        const z = this.x * vector.y - this.y * vector.x;
 
         return new Vector3D(x, y, z);
     }
