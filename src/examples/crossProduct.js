@@ -1,6 +1,6 @@
 import App from '../App.js';
-import CoordSys from '../units/CoordSystem.js';
-import Vector3D from '../lib/Vector3D.js';
+
+import Vector2D from '../lib/Vector2D.js';
 
 const app = new App();
 
@@ -18,15 +18,19 @@ const params = {
     rotetionMatixAngle: 45
 };
 
+const center = new Vector2D(200, 200);
 
+const projectV1 = new Vector2D(center.x + 120, center.y);
 
-const coordSys = new CoordSys(params);
-app.createCoordSys(params, coordSys);
+let projectV2 = new Vector2D(center.x + 120, center.y);
+projectV2 = projectV2.project(center, 120, 135);
+let crossProduct = projectV1.crossProduct(projectV2);
 
+const render = app.getRender();
+render.drawLine(center.x, center.y, projectV1.x, projectV1.y, 0x000000);
+render.drawLine(center.x, center.y, Math.abs(projectV2.x), projectV2.y, 0x000000);
+render.drawLine(center.x, center.y,  center.x , center.y + crossProduct, 0xfff234);
+render.getStage().addChild(render.getGraphics());
 
-const crossProduct = coordSys.getAxisY().crossProduct(coordSys.getAxisX());
-
-const center = coordSys.getCenter();
-app.getRender().drawLine(center.x, center.y, crossProduct.x, crossProduct.y);
 
 
