@@ -19,6 +19,8 @@ export default class Vector3D {
         this.x += vector.x;
         this.y += vector.y;
         this.z += vector.z;
+
+        return new Vector3D(this.x, this.y, this.z);
     }
 
     unit () {
@@ -67,7 +69,11 @@ export default class Vector3D {
     }
 
     crossProduct (vector) {
-        return  (this.x) * (vector.y) -  (this.y )* (vector.x) - (this.z )* (vector.z);
+        const x = this.y * vector.z - vector.y *  this.z;
+        const y = (-1) * (this.z * vector.x - vector.z *  this.x);
+        const z = this.x * vector.y - vector.x *  this.y;
+
+        return new Vector3D(x, y, z);
     }
 
     equatTo (vector) {
@@ -79,7 +85,7 @@ export default class Vector3D {
     }
 
     rotationMatrix (degree) {
-        let rads = (degree * Math.PI) / 180.0
+        let rads = (degree * Math.PI) / 180.0;
         
         const x = this.x * Math.cos(rads) - this.y * Math.sin(rads);
         const y = this.y * Math.cos(rads) + this.x * Math.sin(rads);
@@ -119,5 +125,20 @@ export default class Vector3D {
     projectTo (vector) {
         return new Vector3D(vector.x + this.x, vector.y + this.y, vector.z + this.z);
     }   
+
+    project (projectionVector, length, angle=null) {
+        let currentVector = projectionVector.substract(this);
+        
+        currentVector = currentVector.unit();
+        currentVector = currentVector.mult(length);
+        
+        if (angle) 
+            currentVector = currentVector.rotationMatrix(angle);
+
+        
+        currentVector = projectionVector.add(currentVector);
+        
+        return currentVector;
+    }
 
 }

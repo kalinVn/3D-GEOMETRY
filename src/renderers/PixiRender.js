@@ -22,6 +22,10 @@ class PixiRender {
         
     }
 
+    getStage () {
+        return this.app.stage;
+    }
+
     drawPlane (plane) {
         this.drawLine(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, 0x000000);
         this.drawLine(plane.getV2().x, plane.getV2().y, plane.getV3().x, plane.getV3().y, 0x000000);
@@ -190,7 +194,12 @@ class PixiRender {
         });
     }
 
+    getGraphics () {
+        return this.graphics;
+    }
+
     drawLine (fromX, fromY, toX, toY, color) {
+        
         this.graphics.beginFill(color);
         this.graphics.lineStyle(2, color, 1);
         this.graphics.moveTo(fromX, fromY);

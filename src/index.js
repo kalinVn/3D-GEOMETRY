@@ -5,4 +5,9 @@ import './main.scss';
 import './examples/cube.js';
 
 // import './examples/dotProduct.js';
+<<<<<<< HEAD
+=======
+
+import './examples/crossProduct.js';
+>>>>>>> cross-product
 

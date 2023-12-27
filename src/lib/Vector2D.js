@@ -19,6 +19,10 @@ export default class Vector2D {
         this.y += vector.y;
     }
 
+    crossProduct (vector) {
+        return  this.x * vector.y  - this.y * vector.x;
+    }
+
     unit () {
         return  new Vector2D(this.x / this.length(), this.y / this.length())
     }
@@ -88,4 +92,18 @@ export default class Vector2D {
         return new Vector2D(vector.x + this.x, vector.y + this.y);
     }   
 
+    project (projectionVector, length, angle=null) {
+        let currentVector = projectionVector.substract(this);
+        
+        currentVector = currentVector.unit();
+        currentVector = currentVector.mult(length);
+        
+        if (angle) 
+            currentVector = currentVector.rotationMatrix(angle);
+
+        
+        currentVector = projectionVector.add(currentVector);
+        
+        return currentVector;
+    }
 }
