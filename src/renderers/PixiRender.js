@@ -11,7 +11,7 @@ class PixiRender {
         this.app = new Application({
             width: 1500,
             height: 700,
-            backgroundColor: 0xFFFFFF, 
+            backgroundColor: 0x000000, 
             autoResize: true, 
             view: this.canvas
         });
@@ -36,6 +36,63 @@ class PixiRender {
         this.graphics.drawPolygon(plane.getV1().x, plane.getV1().y, plane.getV2().x, plane.getV2().y, plane.getV3().x, plane.getV3().y, plane.getV4().x, plane.getV4().y);
 
         this.app.stage.addChild(this.graphics);
+    }
+
+    render3DPoint (coordSys, plotedPoint) {
+
+        this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
+        this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v2.x, plotedPoint.v2.y, 0xa6336b);
+        this.drawLine(plotedPoint.v2.x, plotedPoint.v2.y, plotedPoint.v3.x, plotedPoint.v3.y, 0xa6336b);
+        this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
+        this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
+        this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v4.x, plotedPoint.v4.y, 0xa6336b);
+        this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v5.x, plotedPoint.v5.y, 0xa6336b);
+        this.drawLine(plotedPoint.v1.x, plotedPoint.v1.y, plotedPoint.v6.x, plotedPoint.v6.y, 0xa6336b);
+        this.drawLine(plotedPoint.v6.x, plotedPoint.v6.y, plotedPoint.v5.x, plotedPoint.v5.y, 0xa6336b);
+    } 
+
+    dispay3DPointCoordinates (point, plotedPoint) {
+        const textCoordY = {
+            fontSize: 12,
+            fill: 'blue',
+            align: 'center',
+            x: plotedPoint.v2.x + 10,
+            y: plotedPoint.v2.y -30
+        };
+    
+        this.addText(point.y, textCoordY);
+    
+    
+        const textCoordX = {
+            fontSize: 12,
+            fill: 'blue',
+            align: 'center',
+            x: plotedPoint.v1.x - 60,
+            y: plotedPoint.v1.y - 10
+        };
+    
+        this.addText(point.x, textCoordX);
+    
+    
+        const textCoordZ = {
+            fontSize: 12,
+            fill: 'blue',
+            align: 'center',
+            x: plotedPoint.v5.x + 20,
+            y: plotedPoint.v5.y - 30
+        };
+    
+        this.addText(point.z, textCoordZ);
+    
+        const pointCoordText = {
+            fontSize: 12,
+            fill: 'blue',
+            align: 'center',
+            x: plotedPoint.v4.x + 20,
+            y: plotedPoint.v4.y - 30
+        };
+    
+        this.addText(`P(${point.x}, ${point.y}, ${point.z})`, pointCoordText);
     }
 
     drawCoordSystem (coordSystem) {
@@ -199,7 +256,6 @@ class PixiRender {
     }
 
     drawLine (fromX, fromY, toX, toY, color) {
-        
         this.graphics.beginFill(color);
         this.graphics.lineStyle(2, color, 1);
         this.graphics.moveTo(fromX, fromY);
@@ -207,6 +263,16 @@ class PixiRender {
         
         this.graphics.closePath();
         this.graphics.endFill();
+    }
+
+    addText (text, params) {
+        
+        const textObj = new Text(text, params);
+        textObj.x = params.x;
+        textObj.y = params.y;
+        
+        this.app.stage.addChild(textObj);
+
     }
 
 }

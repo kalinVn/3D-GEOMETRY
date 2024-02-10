@@ -67,7 +67,16 @@ class App {
     getRender () {
         return this.render;
     }
+    
+    getCoordSystem () {
+        return this.coordSystem;
+    }
 
+    getCube () {
+        return this.cube;
+    }
+    
+    
     
 }
 

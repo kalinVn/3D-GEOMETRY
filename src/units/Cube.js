@@ -201,7 +201,11 @@ class Cube {
             to: this.coordSys.getCenter()
            
         };
+    }
 
+    getDistanceToPlane (params) {
+        return Math.sqrt(Math.pow(params.v1, 2) + Math.pow(params.v2, 2))
+        
     }
 
     getEdges () {
@@ -214,6 +218,30 @@ class Cube {
 
     getV2 () {
         return this._v2;
+    }
+
+    getV3 () {
+        return this._v3;
+    }
+
+    getV4 () {
+        return this._v4;
+    }
+
+    getV5 () {
+        return this._v5;
+    }
+
+    getV6 () {
+        return this._v6;
+    }
+
+    getV8 () {
+        return this._v8;
+    }
+
+    getV7 () {
+        return this._v7;
     }
 
     getPointC () {

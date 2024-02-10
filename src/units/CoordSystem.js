@@ -1,10 +1,11 @@
 import Vector3D from '../lib/Vector3D.js';
+import Vector2D from '../lib/Vector2D.js';
 
 export default class CoordSys {
 
     constructor(params) {
         
-        this.axisLength = 140;
+        this.axisLength = 350;
         const angleAxisY = 45;
         this._showLabels = params.showLabels;
         this._color = params.color
@@ -12,14 +13,14 @@ export default class CoordSys {
 
         this._center = new Vector3D(params.center.x, params.center.y, z);
         
-        this._y = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
-        this._y = this.project(this._center, this._y, 90);
+        this._z = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
+        this._z = this.project(this._center, this._z, 90);
+
+        this._y = new Vector3D(this._center.x - this.axisLength, this._center.y, z);
+        this._y = this.project(this._center, this._y, 0);
 
         this._x = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
-        this._x = this.project(this._center, this._x, 0);
-
-        this._z = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
-        this._z = this.project(this._center, this._x, -45);
+        this._x= this.project(this._center, this._x, 145);
     }
 
     project (projectionVector, currentVector, angle=null) {
@@ -37,10 +38,6 @@ export default class CoordSys {
 
     bisectionFirstQuadrant () {
         return this.project(this._center, this._y, 45);
-    }
-
-    projectionBetweenAngle () {
-
     }
 
     getColor () {
@@ -83,6 +80,40 @@ export default class CoordSys {
 
         this._x = new Vector3D(x, y, z);
     }
+
+    plot (point) {
+        const xAxisSubatracted = this._x.substract(this._center);
+        const v1Unit = xAxisSubatracted.unit();
+        const v1 = v1Unit.mult(point.x).projectTo(this._center);
+
+        const v2 = new Vector2D(this._center.x + point.y,  this._center.y  );
+        
+        const v3 = v1Unit.mult(point.x).projectTo(v2);
+
+        const zAxisSubstracted = this._z.substract(this._center);
+        const zAxisUnit = zAxisSubstracted.unit();
+        const v4 = zAxisUnit.mult(point.z).projectTo(v3);
+
+        let v5 = zAxisUnit.mult(point.z).projectTo(this._center);
+        let v6 = zAxisUnit.mult(point.z).projectTo(v1);
+
+        const xAxisUnit = this._x.unit()
+        const v7 = xAxisUnit.mult(500).projectTo(v6)
+
+
+        
+        return {
+            v1: v1,
+            v2: v2,
+            v3: v3,
+            v4: v4,
+            v5: v5,
+            v6: v6,
+            v7: v7
+        };
+        
+    }
+    
 
     getAxisX() {
         return this._x;
