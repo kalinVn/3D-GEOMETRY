@@ -13,11 +13,11 @@ export default class CoordSys {
 
         this._center = new Vector3D(params.center.x, params.center.y, z);
         
-        this._z = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
-        this._z = this.project(this._center, this._z, 90);
+        this._y = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
+        this._y = this.project(this._center, this._y, 90);
 
-        this._y = new Vector3D(this._center.x - this.axisLength, this._center.y, z);
-        this._y = this.project(this._center, this._y, 0);
+        this._z = new Vector3D(this._center.x - this.axisLength, this._center.y, z);
+        this._z = this.project(this._center, this._z, 0);
 
         this._x = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
         this._x= this.project(this._center, this._x, 145);
@@ -85,17 +85,17 @@ export default class CoordSys {
         const xAxisSubatracted = this._x.substract(this._center);
         const v1Unit = xAxisSubatracted.unit();
         const v1 = v1Unit.mult(point.x).projectTo(this._center);
-
-        const v2 = new Vector2D(this._center.x + point.y,  this._center.y  );
+        
+        const v2 = new Vector2D(this._center.x + point.z,  this._center.y  );
         
         const v3 = v1Unit.mult(point.x).projectTo(v2);
 
-        const zAxisSubstracted = this._z.substract(this._center);
-        const zAxisUnit = zAxisSubstracted.unit();
-        const v4 = zAxisUnit.mult(point.z).projectTo(v3);
+        const yAxisSubstracted = this._y.substract(this._center);
+        const yAxisUnit = yAxisSubstracted.unit();
+        const v4 = yAxisUnit.mult(point.y).projectTo(v3);
 
-        let v5 = zAxisUnit.mult(point.z).projectTo(this._center);
-        let v6 = zAxisUnit.mult(point.z).projectTo(v1);
+        let v5 = yAxisUnit.mult(point.y).projectTo(this._center);
+        let v6 = yAxisUnit.mult(point.y).projectTo(v1);
 
         const xAxisUnit = this._x.unit()
         const v7 = xAxisUnit.mult(500).projectTo(v6)

@@ -38,17 +38,65 @@ class PixiRender {
         this.app.stage.addChild(this.graphics);
     }
 
+    dispay3DPointVertices(plotedPoint) {
+        const vertices = [
+            {
+                fontSize: 12,
+                fill: 'blue',
+                align: 'center',
+                x: plotedPoint.v1.x - 25,
+                y: plotedPoint.v1.y - 10
+            },
+            {
+                fontSize: 12,
+                fill: 'blue',
+                align: 'center',
+                x: plotedPoint.v3.x - 25,
+                y: plotedPoint.v3.y - 10
+            },
+            {
+                fontSize: 12,
+                fill: 'blue',
+                align: 'center',
+                x: plotedPoint.v4.x - 25,
+                y: plotedPoint.v4.y - 10
+            },
+            {
+                fontSize: 12,
+                fill: 'blue',
+                align: 'center',
+                x: plotedPoint.v6.x - 25,
+                y: plotedPoint.v6.y - 20
+            },
+            {
+                fontSize: 12,
+                fill: 'blue',
+                align: 'center',
+                x: plotedPoint.v5.x - 25,
+                y: plotedPoint.v5.y - 20
+            }
+        ];
+        
+
+        this.addText('V1', vertices[0]);
+        this.addText('V2', vertices[1]);
+        this.addText('V3', vertices[2]);
+        this.addText('V4', vertices[3]);
+        this.addText('V5', vertices[4]);
+    }
+
     render3DPoint (coordSys, plotedPoint) {
 
         this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
         this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v2.x, plotedPoint.v2.y, 0xa6336b);
         this.drawLine(plotedPoint.v2.x, plotedPoint.v2.y, plotedPoint.v3.x, plotedPoint.v3.y, 0xa6336b);
         this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
-        this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
+        
         this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v4.x, plotedPoint.v4.y, 0xa6336b);
         this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v5.x, plotedPoint.v5.y, 0xa6336b);
         this.drawLine(plotedPoint.v1.x, plotedPoint.v1.y, plotedPoint.v6.x, plotedPoint.v6.y, 0xa6336b);
         this.drawLine(plotedPoint.v6.x, plotedPoint.v6.y, plotedPoint.v5.x, plotedPoint.v5.y, 0xa6336b);
+        this.drawLine(plotedPoint.v6.x, plotedPoint.v6.y, plotedPoint.v4.x, plotedPoint.v4.y, 0xa6336b);
     } 
 
     dispay3DPointCoordinates (point, plotedPoint) {
@@ -88,10 +136,16 @@ class PixiRender {
             fontSize: 12,
             fill: 'blue',
             align: 'center',
-            x: plotedPoint.v4.x + 20,
-            y: plotedPoint.v4.y - 30
+            x: plotedPoint.v4.x + 10,
+            y: plotedPoint.v4.y - 10
         };
-    
+        const gr = new Graphics();
+        gr.beginFill(0x00FF00);
+        gr.drawCircle(5, 5, 5);
+        gr.endFill();
+        gr.x = plotedPoint.v4.x;
+        gr.y = plotedPoint.v4.y
+        this.app.stage.addChild(gr);
         this.addText(`P(${point.x}, ${point.y}, ${point.z})`, pointCoordText);
     }
 
