@@ -24,17 +24,17 @@ app.createCoordSys(params, coordSys);
 
 
 const point = {
-    x: 145,
-    y: 190, 
-    z: 260
+    x: -200,
+    y: 100, 
+    z: 100
 };
 
 
 const render = app.getRender();
 
 const plotedPoint = coordSys.plot(point);
-// render.render3DPoint(coordSys, plotedPoint);
-// render.dispay3DPointVertices(plotedPoint);
+render.render3DPoint(coordSys, plotedPoint);
+render.dispay3DPointVertices(plotedPoint);
 render.dispay3DPointCoordinates(point, plotedPoint);
 
 
