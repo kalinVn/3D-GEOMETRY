@@ -8,19 +8,35 @@ export default class CoordSys {
         this.axisLength = 350;
         const angleAxisY = 45;
         this._showLabels = params.showLabels;
-        this._color = params.color
+        this._color = params.color;
         const z = 0;
 
-        this._center = new Vector3D(params.center.x, params.center.y, z);
+        if (params.type) {
+            if (params.type == 'Z_NEGATIVE') {
+                
+                this._center = new Vector3D(params.center.x, params.center.y, z);
+                
+                this._y = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
+                this._y = this.project(this._center, this._y, 90);
+
+                this._z = new Vector3D(this._center.x - this.axisLength, this._center.y, z);
+                this._z = this.project(this._center, this._z, 0);
+
+                this._x = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
+                this._x= this.project(this._center, this._x, 145);
+            }
+        } else {
+            this._center = new Vector3D(params.center.x, params.center.y, z);
         
-        this._y = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
-        this._y = this.project(this._center, this._y, 90);
-
-        this._z = new Vector3D(this._center.x - this.axisLength, this._center.y, z);
-        this._z = this.project(this._center, this._z, 0);
-
-        this._x = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
-        this._x= this.project(this._center, this._x, 145);
+            this._y = new Vector3D(this._center.x +  this.axisLength, this._center.y, z);
+            this._y = this.project(this._center, this._y, 90);
+    
+            this._x = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
+            this._x = this.project(this._center, this._x, 0);
+    
+            this._z = new Vector3D(this._center.x -  this.axisLength, this._center.y, z);
+            this._z = this.project(this._center, this._x, -45);
+        }
     }
 
     project (projectionVector, currentVector, angle=null) {

@@ -149,6 +149,16 @@ class PixiRender {
         this.addText(`P(${point.x}, ${point.y}, ${point.z})`, pointCoordText);
     }
 
+    drawCircle (point, color, radius) {
+        const gr = new Graphics();
+        gr.beginFill(color);
+        gr.drawCircle(radius, radius, radius);
+        gr.endFill();
+        gr.x = point.x;
+        gr.y = point.y
+        this.app.stage.addChild(gr);
+    }
+
     drawCoordSystem (coordSystem) {
        
         const color = coordSystem.getColor();

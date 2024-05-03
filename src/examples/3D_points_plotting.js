@@ -6,6 +6,7 @@ const app = new App();
 
 const params = {
     color: "0xf54242",
+    type: 'Z_NEGATIVE',
     axisLength: 300,
     center: {
         x: 500,
@@ -25,7 +26,7 @@ app.createCoordSys(params, coordSys);
 
 const point = {
     x: -200,
-    y: 100, 
+    y: -100, 
     z: 100
 };
 

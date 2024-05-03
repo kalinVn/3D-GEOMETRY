@@ -10,5 +10,7 @@ import './main.scss';
 
 // import './examples/distance_point_to_plane.js';
 
-import './examples/3D_points_plotting.js';
+// import './examples/3D_points_plotting.js';
+
+import './examples/middle_point.js';
 

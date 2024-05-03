@@ -19,6 +19,10 @@ export default class Vector2D {
         this.y += vector.y;
     }
 
+    middle (vector1, vector2) {
+        return  new Vector2D((vector1.x + vector2.x) / 2,  (vector1.y + vector2.y) / 2);
+    }
+
     crossProduct (vector) {
         return  this.x * vector.y  - this.y * vector.x;
     }

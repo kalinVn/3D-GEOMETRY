@@ -52,6 +52,10 @@ export default class Vector3D {
         return unitVector.mult(length);
     }
 
+    middle (vector1, vector2) {
+        return  new Vector3D((vector1.x + vector2.x) / 2,  (vector1.y + vector2.y) / 2, (vector1.z + vector2.z) / 2);
+    }
+
     multTo (vector) {
         return  new Vector3D(this.x * vector.x,  this.y * vector.y,   this.z * vector.z);
     }
