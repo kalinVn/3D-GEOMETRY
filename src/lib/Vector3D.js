@@ -145,4 +145,11 @@ export default class Vector3D {
         return currentVector;
     }
 
+    rotate ( projectionVector, angle, direction) {
+        const currentVectorRotated = this.rotationMatrix(direction * angle);
+
+        return currentVectorRotated;
+
+    }
+
 }

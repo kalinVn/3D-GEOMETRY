@@ -110,4 +110,8 @@ export default class Vector2D {
         
         return currentVector;
     }
+
+    rotate (currentVector, proctionVector, angle, direction) {
+
+    }
 }

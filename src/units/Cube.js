@@ -6,38 +6,22 @@ class Cube {
 
     constructor (coordSys, params) {
        this.size = params.axisLength;
-       
+       this.params = params;
        this._showEdgeLabels = params.showLabels;
        this.coordSys = coordSys;
-       this.vector3D = new Vector3D();
        const z = 0;
-       this._v1 = new Vector3D(this.coordSys.getCenter().x - this.size, this.coordSys.getCenter().y, z);
-       this._v2 = new Vector3D(this.coordSys.getCenter().x, this.coordSys.getCenter().y - this.size, z);
-       this._v3 =  new Vector3D(this.coordSys.getCenter().x + this.size, this.coordSys.getCenter().y, z);
-       this._v4 =  new Vector3D(this.coordSys.getCenter().x, this.coordSys.getCenter().y +this.size, z);
-       this._v5 = new Vector3D(0, 0, 0);
-       this._v6 =  new Vector3D(this.coordSys.getCenter().x - this.size, this.coordSys.getCenter().y, z);
-       this._v7 = new Vector3D(0, 0, 0);
-       this._v7 = this.coordSys.getCenter();
+       this._vertices = [];
+       this._verticesDirections = params.vertices;
+       this._length = params.axisLength;
+   
        this._edges = {};
     }
 
+
     initGeometry () {
-        this._v1 = this._normalize(this.coordSys.getCenter(), this._v1, -45).projectTo(this.coordSys.getCenter());
-        
-        this._v2 = this._normalize(this.coordSys.getCenter(), this._v2).projectTo(this._v1);
-        
-        this._v3 = this._normalize(this.coordSys.getCenter(), this._v3).projectTo(this._v2);
-
-        this._v4 = this._normalize(this.coordSys.getCenter(), this._v4).projectTo(this._v3);
-
-        const lengthV5 = this.coordSys.getCenter().substract(this._v3).length();
-        this._v5 = this._normalize(this._v3, this.coordSys.getCenter(), 180, lengthV5).projectTo(this._v4);
-
-        this._v6 = this._normalize(this.coordSys.getCenter(), this._v6).projectTo(this._v5);
-
-        this._v7 = this._normalize(this._v3, this.coordSys.getCenter(), 180, lengthV5).projectTo(this._v2);
-
+        this._verticesDirections.forEach((item) => {
+            this,this._vertices.push(new Vector3D(item[0] * this._length, item[1]*this._length, item[2] * this._length));
+        });
     }
 
     _project (projectionVector, currentVector, angle=null, currentSize=null) {
@@ -73,6 +57,10 @@ class Cube {
 
 
         return currentVector;
+    }
+
+    getVertices () {
+        return this._vertices;
     }
 
     initEdges () {

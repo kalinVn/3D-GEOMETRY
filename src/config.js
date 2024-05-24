@@ -36,7 +36,11 @@ export const PARAMS_CUBE = {
     color: "#FF0000",
     axisLength: 120,
     angle: 30,
-    showEdgeLabels: true
+    showEdgeLabels: true,
+    vertices : [
+        [1, 1, 1],
+        [1, -1, -1]
+    ]
 }
 
 export const PLANE_PARAMS = {
@@ -52,3 +56,7 @@ export const PLANE_PARAMS = {
     axisLength: 300
 }
 
+export const COORD_SYS_X_ON_TOP = 'X_ON_TOP';
+export const COORD_SYS_Z_ON_TOP = 'Z_ON_TOP';
+export const COORD_SYS_X_ON_BOTTOM = 'X_ON_BOTTOM';
+export const COORD_SYS_Y_ON_TOP = 'Y_ON_TOP';

@@ -29,8 +29,10 @@ class App {
             direction: 'up',
             hand: 'right',
             showLabels: true,
-            rotetionMatixAngle: 45
+            rotetionMatixAngle: 45,
+            type: 'X_POSITIVE'
         };
+        debugger
         this.createCoordSys(coordSysParams);
 
         const cubeParams = {
@@ -48,9 +50,10 @@ class App {
 
     createCube (params, coordSystem) {
         this.cube = new Cube(coordSystem, params);
-        this.cube.initGeometry();
-        this.cube.initEdges();
-        this.render.drawCube(coordSystem, this.cube);
+        // this.cube.initGeometry();
+        // this.cube.initEdges();
+        
+        // this.render.drawCube(coordSystem, this.cube);
     }
 
     createCoordSys (params, coordSys=null) {

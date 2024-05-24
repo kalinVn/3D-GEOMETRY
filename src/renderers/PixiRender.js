@@ -1,7 +1,7 @@
 import {PADDING_LABEL_AXISES_COORDSYS} from '../config.js';
 import {Application, Text, Graphics}  from 'pixi.js';
 import CoordSystem from '../units/CoordSystem'; 
-
+import {COORD_SYS_X_ON_TOP, COORD_SYS_Y_ON_TOP, COORD_SYS_Z_ON_TOP} from '../config.js';
 class PixiRender {
 
     constructor () {
@@ -85,18 +85,71 @@ class PixiRender {
         this.addText('V5', vertices[4]);
     }
 
-    render3DPoint (coordSys, plotedPoint) {
-
-        this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
-        this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v2.x, plotedPoint.v2.y, 0xa6336b);
-        this.drawLine(plotedPoint.v2.x, plotedPoint.v2.y, plotedPoint.v3.x, plotedPoint.v3.y, 0xa6336b);
-        this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v1.x, plotedPoint.v1.y, 0xa6336b);
+    render3DPoint (coordSys, plottedPoint, paramsP=null) { 
         
-        this.drawLine(plotedPoint.v3.x, plotedPoint.v3.y, plotedPoint.v4.x, plotedPoint.v4.y, 0xa6336b);
-        this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plotedPoint.v5.x, plotedPoint.v5.y, 0xa6336b);
-        this.drawLine(plotedPoint.v1.x, plotedPoint.v1.y, plotedPoint.v6.x, plotedPoint.v6.y, 0xa6336b);
-        this.drawLine(plotedPoint.v6.x, plotedPoint.v6.y, plotedPoint.v5.x, plotedPoint.v5.y, 0xa6336b);
-        this.drawLine(plotedPoint.v6.x, plotedPoint.v6.y, plotedPoint.v4.x, plotedPoint.v4.y, 0xa6336b);
+        if (coordSys.getType() == COORD_SYS_Z_ON_TOP) {
+            this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plottedPoint.v1.x, plottedPoint.v1.y, 0xa6336b);
+            this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plottedPoint.v2.x, plottedPoint.v2.y, 0xa6336b);
+            this.drawLine(plottedPoint.v2.x, plottedPoint.v2.y, plottedPoint.v3.x, plottedPoint.v3.y, 0xa6336b);
+            this.drawLine(plottedPoint.v3.x, plottedPoint.v3.y, plottedPoint.v1.x, plottedPoint.v1.y, 0xa6336b);
+            
+            this.drawLine(plottedPoint.v3.x, plottedPoint.v3.y, plottedPoint.v4.x, plottedPoint.v4.y, 0xa6336b);
+            this.drawLine(coordSys.getCenter().x, coordSys.getCenter().y, plottedPoint.v5.x, plottedPoint.v5.y, 0xa6336b);
+            this.drawLine(plottedPoint.v1.x, plottedPoint.v1.y, plottedPoint.v6.x, plottedPoint.v6.y, 0xa6336b);
+            this.drawLine(plottedPoint.v6.x, plottedPoint.v6.y, plottedPoint.v5.x, plottedPoint.v5.y, 0xa6336b);
+            this.drawLine(plottedPoint.v6.x, plotedPoint.v6.y, plotedPoint.v4.x, plotedPoint.v4.y, 0xa6336b);
+        } else if (coordSys.getType() == COORD_SYS_X_ON_TOP ) { 
+            
+            if (paramsP) {
+                const color = paramsP.color;
+                const radiusCircle = paramsP.radiusCircle;
+                const colorCircle = paramsP.colorCircle;
+                if (paramsP.showLine) {
+                    this.drawLine(plottedPoint.v0.x, plottedPoint.v0.y, plottedPoint.v1.x, plottedPoint.v1.y, color);
+                    this.drawLine(plottedPoint.v1.x, plottedPoint.v1.y, plottedPoint.v2.x, plottedPoint.v2.y, color);
+                    this.drawLine(plottedPoint.v2.x, plottedPoint.v2.y, plottedPoint.v3.x, plottedPoint.v3.y, color);
+                    this.drawLine(plottedPoint.v0.x, plottedPoint.v0.y, plottedPoint.v4.x, plottedPoint.v4.y, color);
+                    this.drawLine(plottedPoint.v2.x, plottedPoint.v2.y, plottedPoint.v6.x, plottedPoint.v6.y, color);
+                    this.drawLine(plottedPoint.v0.x, plottedPoint.v0.y, plottedPoint.v4.x, plottedPoint.v4.y, color);
+                    this.drawLine(plottedPoint.v4.x, plottedPoint.v4.y, plottedPoint.v7.x, plottedPoint.v7.y, color);
+                    this.drawLine(plottedPoint.v6.x, plottedPoint.v6.y, plottedPoint.v7.x, plottedPoint.v7.y, color);
+                }   
+
+                if (paramsP.showVertices) {
+                    this.addText('V0', paramsP);
+
+                    paramsP.x = plottedPoint.v1.x + 10;
+                    paramsP.y = plottedPoint.v1.y - 30;
+
+                    this.addText('V1', paramsP);
+
+                    paramsP.x = plottedPoint.v2.x + 30;
+                    paramsP.y = plottedPoint.v2.y - 10;
+                    this.addText('V2', paramsP);
+
+                    paramsP.x = plottedPoint.v3.x + 30;
+                    paramsP.y = plottedPoint.v3.y - 10;
+                    this.addText('V3', paramsP);
+
+                    paramsP.x = plottedPoint.v6.x + 30;
+                    paramsP.y = plottedPoint.v6.y - 10;
+                
+                    this.addText('V6', paramsP);
+
+                    paramsP.x = plottedPoint.v4.x + 30;
+                    paramsP.y = plottedPoint.v4.y - 10;
+                    
+                    this.addText('V4', paramsP);
+
+                    paramsP.x = plottedPoint.v7.x + 30;
+                    paramsP.y = plottedPoint.v7.y - 10;
+                    
+                    this.addText('V7', paramsP);
+                }
+
+                this.drawCircle(plottedPoint.v6, colorCircle, radiusCircle);
+            }
+        }
     } 
 
     dispay3DPointCoordinates (point, plotedPoint) {
@@ -158,6 +211,7 @@ class PixiRender {
         gr.y = point.y
         this.app.stage.addChild(gr);
     }
+    
 
     drawCoordSystem (coordSystem) {
        
@@ -280,41 +334,27 @@ class PixiRender {
         this.app.stage.addChild(this.graphics);
     }
 
-    drawCube (coordSystem, cube) {
-        const centerX = coordSystem.getCenter().x;
-        const centerY = coordSystem.getCenter().y;
+    drawCube (coordSys, veritces, params) {
+        const plottedPoints = [];
+        const color = params.color
+        veritces.forEach( point => {
+            const plottedPoint = coordSys.plotPoint3D(point);
+            plottedPoints.push(plottedPoint);
+            this.render3DPoint(coordSys, plottedPoint, params);
+        });
         
-        const edges = cube.getEdges();
-        
-        Object.entries(edges).forEach( (item) => {
-            const edge = item[1];
-            let hideEdge = false;
-            
-            if (edge.hasOwnProperty('hideEdge')) {
-                hideEdge = edge.hideEdge ? true : false;
-            }
-            
-            if (!hideEdge) {
-                 this.drawLine(edge.from.x, edge.from.y, edge.to.x, edge.to.y, 0x34eb7d);
-            }
-
-            if (cube.getShowEdgeLabels()) {
-                if (edge.hasOwnProperty('label')) {
-                    const label = new Text(edge.label.text, {
-                        fontFamily: 'Arial',
-                        fontSize: 13,
-                        fill: 'red',
-                        align: 'center'
-                        
-                    });
-                    label.x = edge.label.x;
-                    label.y = edge.label.y;
-                    this.app.stage.addChild(label);
-                }
+        plottedPoints.forEach( (point, index) => {
+            if (index > 0) {
+                this.drawLine(plottedPoints[index - 1].v6.x, plottedPoints[index - 1].v6.y, point.v6.x, point.v6.y, 0x34eb7d);
             }
         });
-    }
 
+        this.drawLine(plottedPoints[2].v6.x, plottedPoints[2].v6.y, plottedPoints[5].v6.x, plottedPoints[5].v6.y, 0x34eb7d);    
+        this.drawLine(plottedPoints[6].v6.x, plottedPoints[6].v6.y, plottedPoints[1].v6.x, plottedPoints[1].v6.y, 0x34eb7d);    
+        this.drawLine(plottedPoints[3].v6.x, plottedPoints[3].v6.y, plottedPoints[0].v6.x, plottedPoints[0].v6.y, 0x34eb7d);
+        this.drawLine(plottedPoints[0].v6.x, plottedPoints[0].v6.y, plottedPoints[7].v6.x, plottedPoints[7].v6.y, 0x34eb7d);
+    }
+   
     getGraphics () {
         return this.graphics;
     }
