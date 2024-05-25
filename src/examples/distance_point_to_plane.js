@@ -56,8 +56,9 @@ const paramsP = {
 
 render.drawCube(coordSys, cube, paramsP);
 
-// if (cube) {
-//     render.drawLine(cube.getV2().x, cube.getV2().y, cube.getV1().x, cube.getV1().y, 0xe01d3e);
+if (cube) {
+    const projectionCubeVertices = render.getProjectionCubeVertices();
+    render.drawLine(projectionCubeVertices[0].projection.x, projectionCubeVertices[0].projection.y, projectionCubeVertices[2].projection.x, projectionCubeVertices[2].projection.y, 0xe01d3e);
 //     render.drawLine(cube.getV2().x, cube.getV2().y, cube.getV7().x, cube.getV7().y, 0xe01d3e);
 //     render.drawLine(cube.getV1().x, cube.getV1().y, cube.getV7().x, cube.getV7().y, 0xe01d3e);
 
@@ -142,6 +143,6 @@ render.drawCube(coordSys, cube, paramsP);
 //     const v1v2Length = cube.getDistanceToPlane(distanceParams.a);
 //     const v1v3Length = cube.getDistanceToPlane(distanceParams.b);
 //     const v1v6Length = cube.getDistanceToPlane(distanceParams.c);
-// }
+}
 
 

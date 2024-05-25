@@ -153,7 +153,7 @@ export default class CoordSys {
                 v4: v4,
                 v6: v6,
                 v7: v7,
-                coordinate: v6
+                projection: v6
             
             };
             

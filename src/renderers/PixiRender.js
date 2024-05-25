@@ -7,7 +7,7 @@ class PixiRender {
     constructor () {
         this.canvas = document.createElement('canvas');
         this.canvas.setAttribute('id','canvas1');
-       
+        this._projectionCubeVertices = [];
         this.app = new Application({
             width: 1500,
             height: 700,
@@ -20,6 +20,11 @@ class PixiRender {
 
         this.graphics = new Graphics();
         
+        
+    }
+
+    getProjectionCubeVertices () {
+        return this._projectionCubeVertices;
     }
 
     getStage () {
@@ -286,11 +291,10 @@ class PixiRender {
                     y: plottedPoint.v6.y + 10
                 };
                 this.addText(`V${index}`, params);
-                // this.app.stage.addChild(label);
-                // console.log(label);
+                
             }
         });
-        
+        this._projectionCubeVertices = plottedPoints;
         linePointsCoordinates.forEach( (pointArr, index) => {
             const plottedPoint1 = coordSys.plotPoint3D(pointArr[0]);
             const plottedPoint2 = coordSys.plotPoint3D(pointArr[1]);
