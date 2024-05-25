@@ -58,7 +58,9 @@ render.drawCube(coordSys, cube, paramsP);
 
 if (cube) {
     const projectionCubeVertices = render.getProjectionCubeVertices();
-    render.drawLine(projectionCubeVertices[0].projection.x, projectionCubeVertices[0].projection.y, projectionCubeVertices[2].projection.x, projectionCubeVertices[2].projection.y, 0xe01d3e);
+    const proctionVector_0 = projectionCubeVertices[0].projection;
+    const proctionVector_2 = projectionCubeVertices[2].projection;
+    render.drawLine(proctionVector_0.x, proctionVector_0.y, proctionVector_2.x, proctionVector_2.y, 0xe01d3e);
 //     render.drawLine(cube.getV2().x, cube.getV2().y, cube.getV7().x, cube.getV7().y, 0xe01d3e);
 //     render.drawLine(cube.getV1().x, cube.getV1().y, cube.getV7().x, cube.getV7().y, 0xe01d3e);
 
