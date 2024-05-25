@@ -44,8 +44,7 @@ class Cube {
 
 
     getDistanceToPlane (params) {
-        return Math.sqrt(Math.pow(params.v1, 2) + Math.pow(params.v2, 2))
-        
+        return Math.sqrt(Math.pow(params.v1.x - params.v2.x, 2) + Math.pow(params.v1.y - params.v2.y, 2))
     }
 
     getEdges () {
