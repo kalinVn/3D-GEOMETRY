@@ -1,25 +1,30 @@
 import App from '../App.js';
-import Vector2D from '../lib/Vector2D.js';
-
+import Vector2D from '../lib/Vector2D';
+import {COORD_SYS_X_ON_TOP, COORD_SYS_Y_ON_TOP, COORD_SYS_Z_ON_TOP, PARAMS_CUBE} from '../config.js';
+import Cube from '../units/Cube'; 
 const app = new App();
-
+import CoordSystem from '../units/CoordSystem.js';
 const params = {
     color: "0xf54242",
     axisLength: 160,
     center: {
         x: 500,
-        y: 270,
+        y: 400,
         z: 0
     },
     direction: 'up',
     hand: 'right',
     showLabels: true,
-    rotetionMatixAngle: 45
+    rotetionMatixAngle: 45,
+    type: COORD_SYS_Z_ON_TOP
+    
 };
 
-app.createCoordSys(params);
+const coordSys = new CoordSystem(params);
+app.createCoordSys(params, coordSys);
+
 const render = app.getRender();
-const center = app.getCoordSystem().getCenter();
+const center = coordSys.getCenter();
 const center2D = new Vector2D(center.x, center.y);
 const currentAxis = new Vector2D(200, 0);
 const direction = -1;

@@ -1,6 +1,7 @@
 import App from '../App.js';
-import CoordSys from '../units/CoordSystem.js';
-import Vector3D from '../lib/Vector3D.js';
+import CoordSystem from '../units/CoordSystem.js';
+
+import {COORD_SYS_X_ON_TOP, COORD_SYS_Y_ON_TOP, COORD_SYS_Z_ON_TOP, PARAMS_CUBE} from '../config.js';
 
 const app = new App();
 
@@ -9,18 +10,19 @@ const params = {
     axisLength: 160,
     center: {
         x: 500,
-        y: 270,
+        y: 400,
         z: 0
     },
     direction: 'up',
     hand: 'right',
     showLabels: true,
-    rotetionMatixAngle: 45
+    rotetionMatixAngle: 45,
+    type: COORD_SYS_Z_ON_TOP
+    
 };
 
 
-
-const coordSys = new CoordSys(params);
+const coordSys = new CoordSystem(params);
 app.createCoordSys(params, coordSys);
 
 let xAxis = coordSys.getAxisX();

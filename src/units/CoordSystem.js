@@ -118,16 +118,12 @@ export default class CoordSys {
         return this.project(this._center, this._y, 45);
     }
 
-    getColor () {
-        return this._color;
-    }
-
-    getHand () {
-        return this._hand;
-    }
-
     getShowLabels() {
         return this._showLabels;
+    }
+
+    getColor () {
+        return this._color;
     }
 
     getCenter() {
@@ -156,7 +152,8 @@ export default class CoordSys {
                 v3: v3,
                 v4: v4,
                 v6: v6,
-                v7: v7
+                v7: v7,
+                coordinate: v6
             
             };
             

@@ -1,4 +1,8 @@
 import App from '../App.js';
+import CoordSystem from '../units/CoordSystem.js';
+
+import {COORD_SYS_X_ON_TOP, COORD_SYS_Y_ON_TOP, COORD_SYS_Z_ON_TOP, PARAMS_CUBE} from '../config.js';
+
 
 import Vector2D from '../lib/Vector2D.js';
 

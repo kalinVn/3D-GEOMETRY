@@ -265,94 +265,38 @@ class PixiRender {
         }
     }
 
-    _drawRightHandCoordSystem (coordSystem) {
-        const centerX = coordSystem.getCenter().x;
-        const centerY = coordSystem.getCenter().y;
-        const showLabels = coordSystem.getShowLabels();
-
-        const axisX = {
-            x: coordSystem.getAxisX().x,
-            y: coordSystem.getAxisX().y,
-        };
-
-        const axisY = {
-            x: coordSystem.getAxisY().x,
-            y: coordSystem.getAxisY().y,
-        };
-
-        const axisZ = {
-            x: coordSystem.getAxisZ().x,
-            y: coordSystem.getAxisZ().y,
-        };
-        
-        this.drawLine(centerX, centerY, centerX + 200, centerY, "blue");
-        this.drawLine(centerX, centerY, axisX.x, axisX.y, "red");
-        this.drawLine(centerX, centerY, axisY.x, axisY.y, "red");
-        this.drawLine(centerX, centerY, axisZ.x, axisZ.y, "red");
-        
-        if (showLabels) {
-
-            const labelAxisX = new Text('x', {
-                fontFamily: 'Arial',
-                fontSize: 24,
-                fill: 'red',
-                align: 'center'
-                
-            });
-
-            const labelAxisY = new Text('y', {
-                fontFamily: 'Arial',
-                fontSize: 24,
-                fill: 'red',
-                align: 'center',
-                x: coordSystem.getAxisY().x + 30,
-                y: coordSystem.getAxisY().y
-            });
-
-            const labelAxisZ = new Text('z', {
-                fontFamily: 'Arial',
-                fontSize: 24,
-                fill: 'red',
-                align: 'center'
-                
-            });
-
-            labelAxisX.x = coordSystem.getAxisX().x;
-            labelAxisX.y = coordSystem.getAxisX().y;
-
-            labelAxisY.x = coordSystem.getAxisY().x + PADDING_LABEL_AXISES_COORDSYS;
-            labelAxisY.y = coordSystem.getAxisY().y + PADDING_LABEL_AXISES_COORDSYS;
-
-            labelAxisZ.x = coordSystem.getAxisZ().x + PADDING_LABEL_AXISES_COORDSYS;
-            labelAxisZ.y = coordSystem.getAxisZ().y - PADDING_LABEL_AXISES_COORDSYS;
-
-            this.app.stage.addChild(labelAxisX);
-            this.app.stage.addChild(labelAxisY);
-            this.app.stage.addChild(labelAxisZ);
-        }
-
-        this.app.stage.addChild(this.graphics);
-    }
-
-    drawCube (coordSys, veritces, params) {
+    drawCube (coordSys, cube, params) {
+        const veritces = cube.getVertices();
         const plottedPoints = [];
-        const color = params.color
-        veritces.forEach( point => {
+        const linePoints = [];
+        const linePointsCoordinates = cube.getLinePointsCoordinates();
+        
+        const color = params.color;
+        veritces.forEach( (point, index) => {
             const plottedPoint = coordSys.plotPoint3D(point);
             plottedPoints.push(plottedPoint);
             this.render3DPoint(coordSys, plottedPoint, params);
-        });
-        
-        plottedPoints.forEach( (point, index) => {
-            if (index > 0) {
-                this.drawLine(plottedPoints[index - 1].v6.x, plottedPoints[index - 1].v6.y, point.v6.x, point.v6.y, 0x34eb7d);
+            if (params.showLabels) {
+                
+                const params = {
+                    fontSize: 16,
+                    fill: 'white',
+                    align: 'center',
+                    x: plottedPoint.v6.x + 20,
+                    y: plottedPoint.v6.y + 10
+                };
+                this.addText(`V${index}`, params);
+                // this.app.stage.addChild(label);
+                // console.log(label);
             }
         });
+        
+        linePointsCoordinates.forEach( (pointArr, index) => {
+            const plottedPoint1 = coordSys.plotPoint3D(pointArr[0]);
+            const plottedPoint2 = coordSys.plotPoint3D(pointArr[1]);
+            this.drawLine(plottedPoint1.v6.x, plottedPoint1.v6.y, plottedPoint2.v6.x, plottedPoint2.v6.y, color);
+        });
 
-        this.drawLine(plottedPoints[2].v6.x, plottedPoints[2].v6.y, plottedPoints[5].v6.x, plottedPoints[5].v6.y, 0x34eb7d);    
-        this.drawLine(plottedPoints[6].v6.x, plottedPoints[6].v6.y, plottedPoints[1].v6.x, plottedPoints[1].v6.y, 0x34eb7d);    
-        this.drawLine(plottedPoints[3].v6.x, plottedPoints[3].v6.y, plottedPoints[0].v6.x, plottedPoints[0].v6.y, 0x34eb7d);
-        this.drawLine(plottedPoints[0].v6.x, plottedPoints[0].v6.y, plottedPoints[7].v6.x, plottedPoints[7].v6.y, 0x34eb7d);
     }
    
     getGraphics () {

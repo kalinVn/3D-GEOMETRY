@@ -1,4 +1,7 @@
 import App from '../App.js';
+import CoordSystem from '../units/CoordSystem.js';
+
+import {COORD_SYS_X_ON_TOP, COORD_SYS_Y_ON_TOP, COORD_SYS_Z_ON_TOP} from '../config.js';
 
 const app = new App();
 
@@ -7,20 +10,18 @@ const params = {
     axisLength: 160,
     center: {
         x: 500,
-        y: 270,
+        y: 400,
         z: 0
     },
     direction: 'up',
     hand: 'right',
     showLabels: true,
-    rotetionMatixAngle: 45
+    rotetionMatixAngle: 45,
+    // type: COORD_SYS_Z_ON_TOP,
+    type: COORD_SYS_Z_ON_TOP
+    
 };
 
-// if want ro hide x ,y z labels 
-// params.showLabels = true;
-
-// create coord sys
-app.createCoordSys(params);
-
-
+const coordSys = new CoordSystem(params);
+app.createCoordSys(params, coordSys);
 
